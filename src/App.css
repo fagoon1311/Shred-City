@@ -1,0 +1,21 @@
+.main-background {
+    position: fixed; /* Fixed positioning to cover the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0e100f; /* Solid pitch-black background */
+    z-index: -1; /* Ensure it is behind other elements */
+    pointer-events: none; /* Prevent interaction with the background */
+}
+
+.main-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.9), transparent); /* Radial gradient effect */
+    z-index: -1; /* Ensure it is behind any content */
+}
