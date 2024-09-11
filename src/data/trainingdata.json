@@ -1,12 +1,15 @@
 [
-    {
+    {   
+        "id": 1,
         "title":"Group CrossFit Classes",
         "description":"Get fit while having fun with out group CrossFit classes",
         "pointers":["Just 30 minutes long", "Warm up & workout included", "Fun is guaranteed"],
         "image":"./crossfit_mainpage.png",
         "orientation":"right"
+
     },
     {
+        "id": 2,
         "title":"Strength Training",
         "description":"Crush any strength program with our suite of strength equipment",
         "pointers":["Fully Fitted powerlifting and strongman section", "Olympic lifting platforms, weights and bars", "Dumbels raning 1kgs - 120kgs"],
@@ -15,6 +18,7 @@
 
     },  
     {
+        "id": 3,
         "title":"Personal Training",
         "description":"Be guided every step of the way with one of our world class coaches for each of the following categories",
         "pointers":["Weightloss", "Competitive CrossFit", "Powerlifting"],
@@ -23,6 +27,7 @@
 
     },
     {
+        "id": 4,
         "title":"Member Only Events", 
         "description":"Make new friends and get competitive with fun member events",
         "pointers":["Friendly competitions", "Monthly Challenges","Summer potlucks and games"],
