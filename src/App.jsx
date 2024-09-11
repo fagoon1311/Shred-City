@@ -4,6 +4,7 @@ import { Button } from './components/ui/button'
 import AppLayout from './layouts/AppLayout'
 import LandingPage from './pages/landing'
 import { ThemeProvider } from './components/themeprovider'
+import Shop from './pages/shop'
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path:'/',
         element: <LandingPage />
+      },
+      {
+        path:'/shop',
+        element:<Shop />
       }
     ]
   }

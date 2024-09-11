@@ -1,0 +1,22 @@
+[
+    {
+        "id":"1",
+        "title":"Cross Fit Group Classes",
+        "image":"./servicecards/crossfit.jpg"                    
+    },
+    {
+        "id":"2",
+        "title":"Strength Training",
+        "image":"./servicecards/strength.jpg"
+    },
+    {
+        "id":"3",
+        "title":"Personal Training",
+        "image":"./servicecards/personaltraining.jpg"
+    },
+    {
+        "id":"4",
+        "title":"Member Only Events",
+        "image":"./servicecards/members.jpg"
+    }
+]
