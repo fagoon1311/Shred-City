@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "plan":"Month to Month",
+        "price":"₹ 2500",
+        "features":["All classes", "All member events","Full gym access"],
+        "payment_info":"Charges every month unless you cancel"
+    },
+    {
+        "id":2,
+        "plan":"6 Month Membership",
+        "price":"₹ 10000",
+        "features":["All classes", "All member events","Full gym access"],
+        "payment_info":"Charges every 6 months unless you cancel"
+    },
+    {
+        "id":3,
+        "plan":"1 Year Membership ",
+        "price":"₹ 18000",
+        "features":["All classes", "All member events","Full gym access"],
+        "payment_info":"Charges every year unless you cancel"
+    }
+] 

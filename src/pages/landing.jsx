@@ -1,3 +1,4 @@
+import MemberShipCards from '@/components/membershipcards'
 import ServiceCards from '@/components/servicecards'
 import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
@@ -26,6 +27,9 @@ const LandingPage = () => {
         {/* Description of services */}
         <section>
           <ServiceDetail />
+        </section>
+        <section>
+          <MemberShipCards />
         </section>
       </main>
 
