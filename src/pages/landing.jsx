@@ -1,8 +1,10 @@
+import About from '@/components/about'
 import MemberShipCards from '@/components/membershipcards'
 import ServiceCards from '@/components/servicecards'
 import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
 import React from 'react'
+
 
 const LandingPage = () => {
   const handleTrialBooking = () => {
@@ -28,9 +30,25 @@ const LandingPage = () => {
         <section>
           <ServiceDetail />
         </section>
-        <section>
+        {/* Memberships */}
+        <section className='flex flex-col gap-6 bg-[#5f7252] pt-10 pb-20'>
+          <div className='flex flex-col items-center gap-10 mb-8 mt-20'>
+              <div className='border border-white rounded-l-full rounded-r-full w-[10rem] p-2 text-center '>
+                Memberships
+              </div>
+              <div className='w-2/3 text-center'>
+                <h1 className='font-Poppins text-5xl font-bold'>
+                  Crushing your health and fitness goals starts here...
+                </h1>
+              </div>
+          </div>
           <MemberShipCards />
         </section>
+        {/* About Section */}
+        <section>
+          <About />
+        </section>
+
       </main>
 
 
