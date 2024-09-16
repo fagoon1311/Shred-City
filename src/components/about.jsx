@@ -18,7 +18,7 @@ const About = () => {
   })
 
   const onSubmit = () => {
-    
+
   }
   return (
     <div className='flex flex-col items-center mt-32'>
@@ -38,7 +38,7 @@ const About = () => {
                 <Input 
                 type='text'
                 placeholder='Name'
-                className='bg-black mb-10 text-white border-[#97fb57] border-[3px] h-16'
+                className='bg-black mb-6 text-white border-[#97fb57] border-[3px] h-16 rounded-3xl'
                 {...register('name')}
                 />
 
@@ -51,7 +51,7 @@ const About = () => {
                 <Input 
                 type='text'
                 placeholder='email'
-                className='bg-black text-white border-[#97fb57] border-[3px] mb-10 h-16'
+                className='bg-black text-white border-[#97fb57] border-[3px] mb-6 h-16 rounded-3xl'
                 {...register('email')}
                 />
                 {
@@ -62,7 +62,7 @@ const About = () => {
                 <Input 
                 type='text'
                 placeholder='Phone Number'
-                className='bg-black text-white border-[#97fb57] border-[3px] mb-10 h-16'
+                className='bg-black text-white border-[#97fb57] border-[3px] mb-6 h-16 rounded-3xl'
                 {...register('phone')}
                 />
 
@@ -77,7 +77,7 @@ const About = () => {
                     control={control}
                     render={({field})=>(
                       <Select className='flex-1' onValueChange={field.onChange} {...field}>
-                      <SelectTrigger className='bg-black text-white border-[#97fb57] border-[3px] h-16'>
+                      <SelectTrigger className='bg-black text-white border-[#97fb57] border-[3px] h-16 rounded-3xl'>
                         <SelectValue placeholder="Select Membership" />
                       </SelectTrigger>
                       <SelectContent className='bg-black text-white'  >
