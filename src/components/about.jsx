@@ -1,8 +1,25 @@
 import React from 'react'
 import { Input } from './ui/input'
 import { SelectContent, Select, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { z } from 'zod'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from "@hookform/resolvers/zod"
+
+const schema = z.object({
+  name: z.string().min(1, {message: "Enter a valid Name."}),
+  email: z.string().min(1, {message: "Enter a valid Email Address."}),
+  phone: z.string().min(10, {message: "Enter a valid 10 digit contact number"}).max(10, {message: "Enter a valid 10 digit contact number"}),
+  membership: z.enum([['Month to Month', '6 Months', '1 Year']],{message:"Please choose a membership type"})
+})
 
 const About = () => {
+  const {register, handleSubmit, control, formState:{errors}, reset} = useForm({
+    resolver: zodResolver(schema)
+  })
+
+  const onSubmit = () => {
+    
+  }
   return (
     <div className='flex flex-col items-center mt-32'>
         <div className='flex flex-col items-center'>
@@ -17,29 +34,67 @@ const About = () => {
 
         <div className='grid grid-cols-2 gap-24 mt-10'>
             <div className='col-span-1 flex items-center justify-center'>
-              <form className='w-[25rem]'>
+              <form className='w-[25rem]' onSubmit={handleSubmit(onSubmit)}>
                 <Input 
                 type='text'
                 placeholder='Name'
+                className='bg-black mb-10 text-white border-[#97fb57] border-[3px] h-16'
+                {...register('name')}
                 />
+
+                {
+                  errors.name && (
+                    <p className='text-red-500'>{errors.name.message}</p>
+                  )
+                }
+              
                 <Input 
                 type='text'
                 placeholder='email'
+                className='bg-black text-white border-[#97fb57] border-[3px] mb-10 h-16'
+                {...register('email')}
                 />
+                {
+                  errors.email && (
+                    <p className='text-red-500'>{errors.email.message}</p>
+                  )
+                }
                 <Input 
                 type='text'
                 placeholder='Phone Number'
+                className='bg-black text-white border-[#97fb57] border-[3px] mb-10 h-16'
+                {...register('phone')}
                 />
-                <Select >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select Membership" />
-                  </SelectTrigger>
-                  <SelectContent >
-                    <SelectItem value="light">Month to Month</SelectItem>
-                    <SelectItem value="dark">6 Months</SelectItem>
-                    <SelectItem value="system">1 Year</SelectItem>
-                  </SelectContent>
-                </Select>
+
+                {
+                  errors.phone && (
+                    <p className='text-red-500'>{errors.phone.message}</p>
+                  )
+                }
+
+                <Controller 
+                    name='membership'
+                    control={control}
+                    render={({field})=>(
+                      <Select className='flex-1' onValueChange={field.onChange} {...field}>
+                      <SelectTrigger className='bg-black text-white border-[#97fb57] border-[3px] h-16'>
+                        <SelectValue placeholder="Select Membership" />
+                      </SelectTrigger>
+                      <SelectContent className='bg-black text-white'  >
+                        <SelectItem value="light">Month to Month</SelectItem>
+                        <SelectItem value="dark">6 Months</SelectItem>
+                        <SelectItem value="system">1 Year</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    )}
+                />
+
+              {
+                errors.membership && (
+                  <p className='text-red-500'>{errors.membership.message}</p>
+                )
+              }
+                
               </form>
               </div>
               <div className='col-span-1'>
