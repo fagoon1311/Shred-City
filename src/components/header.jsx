@@ -5,6 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 
 const Header = () => {
+    
     const [showSignIn, setShowSignIn] = useState(false)
     const {user} = useUser()
     console.log(user)

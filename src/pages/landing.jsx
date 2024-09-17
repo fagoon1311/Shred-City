@@ -3,11 +3,13 @@ import MemberShipCards from '@/components/membershipcards'
 import ServiceCards from '@/components/servicecards'
 import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
+import { useUser } from '@clerk/clerk-react'
 import React, { useRef } from 'react'
 
 
 
 const LandingPage = () => {
+  const {isLoaded, user} = useUser()
 
   const aboutRef = useRef() 
   const handleTrialBooking = (ref) => {
@@ -50,7 +52,7 @@ const LandingPage = () => {
         </section>
         {/* About Section */}
         <section ref={aboutRef}>
-          <About />
+          <About user={user} />
         </section>
 
       </main>

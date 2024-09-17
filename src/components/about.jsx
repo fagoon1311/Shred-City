@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import useFetch from '@/hooks/useFetch'
 import { addNewTrial } from '@/api/apiTrial'
+import { Button } from './ui/button'
 
 const schema = z.object({
   name: z.string().min(1, {message: "Enter a valid Name."}),
@@ -14,7 +15,7 @@ const schema = z.object({
   membership: z.enum([['Month to Month', '6 Months', '1 Year']],{message:"Please choose a membership type"})
 })
 
-const About = () => {
+const About = ({user}) => {
   const {register, handleSubmit, control, formState:{errors}, reset} = useForm({
     resolver: zodResolver(schema)
   })
@@ -26,7 +27,11 @@ const About = () => {
   } = useFetch(addNewTrial)
 
   const onSubmit = (data) => {
-    fnTrial(...data)
+    fnTrial({
+      ...data,
+      trial_id: user.id
+
+    })
   }
   return (
     <div className='flex flex-col items-center mt-32'>
@@ -42,7 +47,7 @@ const About = () => {
 
         <div className='grid grid-cols-2 gap-24 mt-10'>
             <div className='col-span-1 flex items-center justify-center'>
-              <form className='w-[25rem]' onSubmit={handleSubmit(onSubmit)}>
+              <form className='w-[25rem] flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
                 <Input 
                 type='text'
                 placeholder='Name'
@@ -102,7 +107,8 @@ const About = () => {
                   <p className='text-red-500'>{errors.membership.message}</p>
                 )
               }
-                
+                <Button type='submit' variant='neon' className='mt-5 rounded-3xl w-full'>Submit</Button>
+
               </form>
               </div>
               <div className='col-span-1'>
