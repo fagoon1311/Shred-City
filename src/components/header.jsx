@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignIn, SignInButton, UserButton, useUser } from '@clerk/clerk-react'
-import { ShoppingBag } from 'lucide-react'
+import { Handshake, ShoppingBag } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
@@ -32,22 +32,22 @@ const Header = () => {
             <Link >
                 <img src='./sc-logo.png' alt='logo' className='h-14'></img>
             </Link>
-            <div className='flex gap-12'>
+            <div className='flex gap-12 items-center'>
                 <h1>Memberships</h1>
-                <h1><span className='flex gap-2'><ShoppingBag color='#97fb57' />Shop</span></h1>
+                <Link to='/shop'><h1 className='hover:cursor-pointer'><span className='flex gap-2'><ShoppingBag color='#97fb57' />Shop</span></h1></Link>
                 <h1>Contact</h1>
                 <div>
                   <SignedOut>
-                    <Button variant='neon' className='rounded-l-full rounded-r-full h-8' onClick={()=>setShowSignIn(true)}> Login </Button>
+                    <Button variant='neon' className='rounded-l-full rounded-r-full h-8 font-medium text-sm' onClick={()=>setShowSignIn(true)}> Login </Button>
                   </SignedOut>
                   <SignedIn>
                     <UserButton appearance={{
                         elements:{
-                        avatarBox: "w-10 h-10"
+                        avatarBox: "w-8 h-8"
                       }
                     }}>
                       <UserButton.MenuItems>
-                        <UserButton.Link label='My Membership' href='/my-memberships'/>
+                        <UserButton.Link label='My Membership' labelIcon={<Handshake size={15} />} href='/my-memberships'/>
                       </UserButton.MenuItems>
                     </UserButton>
                   </SignedIn>

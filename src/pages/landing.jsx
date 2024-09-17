@@ -3,16 +3,30 @@ import MemberShipCards from '@/components/membershipcards'
 import ServiceCards from '@/components/servicecards'
 import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
-import { useUser } from '@clerk/clerk-react'
-import React, { useRef } from 'react'
-import { Navigate } from 'react-router-dom'
+import { SignIn, useUser } from '@clerk/clerk-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import ProtectedRoute from '@/components/protectedroute'
 
 
 
 const LandingPage = () => {
   const {isLoaded, user, isSignedIn} = useUser()
-  
+  const [showSignIn, setShowSignIn] = useState(false)
+  const [search, setSearch] = useSearchParams()
+
+  useEffect(()=>{
+    if(search.get('sign-in')){
+      setShowSignIn(true)
+    }
+  }, [search])
+
+  const handleOverlayClick = (e) =>{
+    if(e.target === e.currentTarget){
+      setShowSignIn(false)
+      setSearch({})
+    }
+  }
 
   const aboutRef = useRef() 
   const handleTrialBooking = (ref) => {
@@ -29,7 +43,10 @@ const LandingPage = () => {
         <section className="relative section-bg min-h-screen flex flex-col items-center justify-center px-6 z-10">
           <h1 className="font-Poppins text-white   lg:text-8xl font-semibold md:text-6xl">Crush your health and <br></br>fitness goals in no time</h1>
           <p className='font-Poppins text-white mt-5 text-center md:text-sm'>It doesn’t matter if your goal is to get stronger, burn fat, or to just stay fit <br></br> our world class coaches will guide you every step of the way.</p>
-          <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={()=>handleTrialBooking(aboutRef)}>Start your Trial</Button>
+          <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={()=>{
+            handleTrialBooking(aboutRef)
+            if(!isSignedIn)setShowSignIn(true) 
+            }}>Start your Trial</Button>
         </section>
 
         {/* Services Provided */}
@@ -60,6 +77,14 @@ const LandingPage = () => {
         <section>
           <About ref={aboutRef} user={user} />
         </section>
+        {
+          showSignIn && <div className='fixed inset-10 z-30 flex items-center justify-center' onClick={handleOverlayClick}>
+          <SignIn 
+            signUpForceRedirectUrl='/'
+            fallbackRedirectUrl='/'            
+          />
+        </div>
+        }
 
       </main>
 
