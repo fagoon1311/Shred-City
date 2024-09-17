@@ -5,6 +5,8 @@ import AppLayout from './layouts/AppLayout'
 import LandingPage from './pages/landing'
 import { ThemeProvider } from './components/themeprovider'
 import Shop from './pages/shop'
+import MyMemberships from './pages/mymemberships'
+import ProtectedRoute from './components/protectedroute'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,16 @@ const router = createBrowserRouter([
       {
         path:'/shop',
         element:<Shop />
+      },
+      {
+        path:'/my-memberships',
+        element:(
+          <ProtectedRoute>
+            <MyMemberships />
+          </ProtectedRoute>
+        )
       }
+  
     ]
   }
 ])

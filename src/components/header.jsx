@@ -41,7 +41,15 @@ const Header = () => {
                     <Button variant='neon' className='rounded-l-full rounded-r-full h-8' onClick={()=>setShowSignIn(true)}> Login </Button>
                   </SignedOut>
                   <SignedIn>
-                    <UserButton />
+                    <UserButton appearance={{
+                        elements:{
+                        avatarBox: "w-10 h-10"
+                      }
+                    }}>
+                      <UserButton.MenuItems>
+                        <UserButton.Link label='My Membership' href='/my-memberships'/>
+                      </UserButton.MenuItems>
+                    </UserButton>
                   </SignedIn>
                 </div>
             </div>
