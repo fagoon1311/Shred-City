@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Input } from './ui/input'
 import { SelectContent, Select, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { z } from 'zod'
@@ -12,10 +12,10 @@ const schema = z.object({
   name: z.string().min(1, {message: "Enter a valid Name."}),
   email: z.string().min(1, {message: "Enter a valid Email Address."}),
   phone: z.string().min(10, {message: "Enter a valid 10 digit contact number"}).max(10, {message: "Enter a valid 10 digit contact number"}),
-  membership: z.enum([['Month to Month', '6 Months', '1 Year']],{message:"Please choose a membership type"})
+  membership: z.enum(['Month to Month', '6 Months', '1 Year'],{message:"Please choose a membership type"})
 })
 
-const About = ({user}) => {
+const About = forwardRef(({user}, ref) => {
   const {register, handleSubmit, control, formState:{errors}, reset} = useForm({
     resolver: zodResolver(schema)
   })
@@ -30,11 +30,12 @@ const About = ({user}) => {
     fnTrial({
       ...data,
       trial_id: user.id
-
+    }).then(()=>{
+      reset()
     })
   }
   return (
-    <div className='flex flex-col items-center mt-32'>
+    <div ref={ref} className='flex flex-col items-center mt-32'>
         <div className='flex flex-col items-center'>
             <div className='border border-[#a5e87ca4] w-[12rem] rounded-full p-2 text-center mb-16'>About Shred City</div>
             <h1 className='font-Poppins font-bold text-5xl text-center'>
@@ -94,9 +95,9 @@ const About = ({user}) => {
                         <SelectValue placeholder="Select Membership" />
                       </SelectTrigger>
                       <SelectContent className='bg-black text-white'  >
-                        <SelectItem value="light">Month to Month</SelectItem>
-                        <SelectItem value="dark">6 Months</SelectItem>
-                        <SelectItem value="system">1 Year</SelectItem>
+                        <SelectItem value="Month to Month">Month to Month</SelectItem>
+                        <SelectItem value="6 Months">6 Months</SelectItem>
+                        <SelectItem value="1 Year">1 Year</SelectItem>
                       </SelectContent>
                     </Select>
                     )}
@@ -118,6 +119,6 @@ const About = ({user}) => {
 
     </div>
   )
-}
+})
 
 export default About

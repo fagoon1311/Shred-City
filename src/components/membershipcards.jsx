@@ -17,7 +17,7 @@ const MemberShipCards = () => {
                     </div>
                     <ul >
                         {
-                            data.features.map((feature)=> <li className='font-Poppins tracking-tighter py-2 text-black'><span className='flex gap-2'><CircleCheck color='#5f7252'/> {feature}</span></li>)
+                            data.features.map((feature, index)=> <li key={index}className='font-Poppins tracking-tighter py-2 text-black'><span className='flex gap-2'><CircleCheck color='#5f7252'/> {feature}</span></li>)
                         }
                     </ul>
                     <p className='text-slate-600 mt-2 mb-2'>{data.payment_info}</p>

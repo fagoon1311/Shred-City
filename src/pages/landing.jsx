@@ -5,16 +5,22 @@ import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
 import { useUser } from '@clerk/clerk-react'
 import React, { useRef } from 'react'
+import { Navigate } from 'react-router-dom'
+import ProtectedRoute from '@/components/protectedroute'
 
 
 
 const LandingPage = () => {
-  const {isLoaded, user} = useUser()
+  const {isLoaded, user, isSignedIn} = useUser()
+  
 
   const aboutRef = useRef() 
   const handleTrialBooking = (ref) => {
-    window.scrollTo({top:ref.current.offsetTop, behavior:"smooth"});
-    console.log(ref)
+      if (ref?.current) {
+        window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
+      } else {
+        console.error("Ref is not available yet.");
+    }  
   }
   return (
     <div>
@@ -51,8 +57,8 @@ const LandingPage = () => {
           <MemberShipCards />
         </section>
         {/* About Section */}
-        <section ref={aboutRef}>
-          <About user={user} />
+        <section>
+          <About ref={aboutRef} user={user} />
         </section>
 
       </main>
