@@ -45,7 +45,7 @@ const LandingPage = () => {
           <p className='font-Poppins text-white mt-5 text-center md:text-sm'>It doesn’t matter if your goal is to get stronger, burn fat, or to just stay fit <br></br> our world class coaches will guide you every step of the way.</p>
           <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={()=>{
             handleTrialBooking(aboutRef)
-            if(!isSignedIn)setShowSignIn(true) 
+            if(!isSignedIn && isLoaded)setShowSignIn(true) 
             }}>Start your Trial</Button>
         </section>
 
