@@ -1,16 +1,27 @@
 import { SignedIn, SignedOut, SignIn, SignInButton, UserButton, useUser } from '@clerk/clerk-react'
 import { ShoppingBag } from 'lucide-react'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 
 const Header = () => {
     const [showSignIn, setShowSignIn] = useState(false)
     const {user} = useUser()
     console.log(user)
+
+    const [search, setSearch] = useSearchParams()
+
+    useEffect(()=>{
+      if(search.get('sign-in')){
+        setShowSignIn(true)
+      }
+    }, [search])
+
+
     const handleOverlayClick = (e) => {
       if(e.target === e.currentTarget){
         setShowSignIn(false)
+        setSearch({})
       }
     }
 
@@ -24,7 +35,6 @@ const Header = () => {
                 <h1>Memberships</h1>
                 <h1><span className='flex gap-2'><ShoppingBag color='#97fb57' />Shop</span></h1>
                 <h1>Contact</h1>
-                <h1>Login/logout</h1>
                 <div>
                   <SignedOut>
                     <Button variant='neon' className='rounded-l-full rounded-r-full h-8' onClick={()=>setShowSignIn(true)}> Login </Button>

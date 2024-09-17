@@ -4,6 +4,8 @@ import { SelectContent, Select, SelectItem, SelectTrigger, SelectValue } from '.
 import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
+import useFetch from '@/hooks/useFetch'
+import { addNewTrial } from '@/api/apiTrial'
 
 const schema = z.object({
   name: z.string().min(1, {message: "Enter a valid Name."}),
@@ -17,8 +19,14 @@ const About = () => {
     resolver: zodResolver(schema)
   })
 
-  const onSubmit = () => {
+  const {
+    loading: loadingNewTrial,
+    error: errorTrial,
+    fn: fnTrial
+  } = useFetch(addNewTrial)
 
+  const onSubmit = (data) => {
+    fnTrial(...data)
   }
   return (
     <div className='flex flex-col items-center mt-32'>

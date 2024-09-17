@@ -3,12 +3,16 @@ import MemberShipCards from '@/components/membershipcards'
 import ServiceCards from '@/components/servicecards'
 import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
-import React from 'react'
+import React, { useRef } from 'react'
+
 
 
 const LandingPage = () => {
-  const handleTrialBooking = () => {
 
+  const aboutRef = useRef() 
+  const handleTrialBooking = (ref) => {
+    window.scrollTo({top:ref.current.offsetTop, behavior:"smooth"});
+    console.log(ref)
   }
   return (
     <div>
@@ -17,7 +21,7 @@ const LandingPage = () => {
         <section className="relative section-bg min-h-screen flex flex-col items-center justify-center px-6 z-10">
           <h1 className="font-Poppins text-white   lg:text-8xl font-semibold md:text-6xl">Crush your health and <br></br>fitness goals in no time</h1>
           <p className='font-Poppins text-white mt-5 text-center md:text-sm'>It doesn’t matter if your goal is to get stronger, burn fat, or to just stay fit <br></br> our world class coaches will guide you every step of the way.</p>
-          <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={handleTrialBooking}>Start your Trial</Button>
+          <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={()=>handleTrialBooking(aboutRef)}>Start your Trial</Button>
         </section>
 
         {/* Services Provided */}
@@ -45,7 +49,7 @@ const LandingPage = () => {
           <MemberShipCards />
         </section>
         {/* About Section */}
-        <section>
+        <section ref={aboutRef}>
           <About />
         </section>
 
