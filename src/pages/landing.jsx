@@ -75,7 +75,7 @@ const LandingPage = () => {
         </section>
         {/* About Section */}
         <section>
-          <About ref={aboutRef} user={user} />
+          <About ref={aboutRef} user={user} showSignIn={showSignIn} setShowSignIn={setShowSignIn} isSignedIn={isSignedIn} isLoaded={isLoaded} />
         </section>
         {
           showSignIn && <div className='fixed inset-10 z-30 flex items-center justify-center' onClick={handleOverlayClick}>

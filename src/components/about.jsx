@@ -15,7 +15,7 @@ const schema = z.object({
   membership: z.enum(['Month to Month', '6 Months', '1 Year'],{message:"Please choose a membership type"})
 })
 
-const About = forwardRef(({user}, ref) => {
+const About = forwardRef(({user,showSignIn, setShowSignIn, isSignedIn, isLoaded}, ref) => {
   const {register, handleSubmit, control, formState:{errors}, reset} = useForm({
     resolver: zodResolver(schema)
   })
@@ -27,6 +27,11 @@ const About = forwardRef(({user}, ref) => {
   } = useFetch(addNewTrial)
 
   const onSubmit = (data) => {
+    if(!isSignedIn && isLoaded){
+      setShowSignIn(true)
+      console.log('button pressed', showSignIn) 
+      return
+    }
     fnTrial({
       ...data,
       trial_id: user.id
