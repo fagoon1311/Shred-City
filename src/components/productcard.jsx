@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from './ui/button';
+import { ShoppingCart } from 'lucide-react';
 
 const ProductCard = ({ name, description, price, imageUrl }) => {
   return (
-    <div className='flex flex-col h-[30rem] w-[20rem] items-center m-10 bg-gray-800 rounded-3xl overflow-hidden gap-3'>
+    <div className='flex flex-col h-[25rem] w-[20rem] items-center m-10 bg-black border-2 rounded-3xl overflow-hidden gap-3'>
       <div className='h-[50%] w-full overflow-hidden'> {/* Container to hide overflow */}
         <img 
           src={imageUrl} 
@@ -19,10 +20,10 @@ const ProductCard = ({ name, description, price, imageUrl }) => {
             {description.length > 100 ? description.substring(0, 100) + '...' : description}
         </p>
       </div>
-      <div className='flex justify-between items-center p-2 w-full'>
-        <h1 className='text-lg font-semibold'>{price}</h1>
-        <Button className='px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600'> {/* Adjust button styling */}
-          Add to Cart
+      <div className='flex justify-between items-center px-2 w-full'>
+        <h1 className='text-lg font-semibold'>₹ {price}</h1>
+        <Button variant='neon' className='h-6 w-32 p-4 rounded-3xl'> {/* Adjust button styling */}
+          <span className='flex justify-between p-2'><ShoppingCart size='20' /><h1 className='text-sm ml-2'>Add to cart</h1></span>
         </Button>
       </div>
     </div>
