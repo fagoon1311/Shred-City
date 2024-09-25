@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export async function getProducts() {
-  const { data, error } = await supabase.from('products').select('*');
+  const { data, error } = await supabase.from('products').select('*, category:categories(category_name)');
 
   if (error) {
     console.error("Error fetching products:", error.message);

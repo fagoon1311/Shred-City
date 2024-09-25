@@ -20,14 +20,14 @@ const Shop = () => {
     error: errorCategories,
     data: categories,
     fn: fnCategories
-  } = useFetch(getCategories, {}, false)
+  } = useFetch(getCategories, {category}, false)
 
   useEffect(() => {
     fnProducts(); // Fetch products without requiring login
     fnCategories()
   }, [category]);
 
-
+  if(categories) console.log(categories)
   if (loadingProducts) {
     return (
       <div className='flex items-center justify-center h-screen w-screen'>
@@ -35,6 +35,15 @@ const Shop = () => {
       </div>
     );
   }
+
+  if (loadingCategories) {
+    return (
+      <div className='flex items-center justify-center h-screen w-screen'>
+        <PropagateLoader color="#97fb57" size={40} />
+      </div>
+    );
+  }
+
 
 
   return (
@@ -49,7 +58,7 @@ const Shop = () => {
           <SelectGroup>
             {
               categories?.map((cat) => {
-                return <SelectItem key={cat.id} value={cat.category_type}>{cat.category_type}</SelectItem>
+                return <SelectItem key={cat.id} value={cat.category_name}>{cat.category_name}</SelectItem>
               })
             }
           </SelectGroup>
