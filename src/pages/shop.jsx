@@ -82,15 +82,16 @@ const Shop = () => {
       <div className='flex justify-center w-full'>
         <div className='mt-8 mx-auto w-full grid md:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center'>
           {
-            productsData.map((product, index) => (
-              <ProductCard 
-                key={index} 
-                name={product.name} 
-                description={product.description} 
-                imageUrl={product.image_url} 
-                price={product.price}
-              />
-            ))
+            productsData.map((product, index) => {
+              if(product?.category){
+                return (<ProductCard 
+                  key={index} 
+                  name={product.name} 
+                  description={product.description} 
+                  imageUrl={product.image_url} 
+                  price={product.price}
+                />)
+              }})
           }
         </div>
       </div>

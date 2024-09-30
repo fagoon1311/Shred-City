@@ -17,7 +17,6 @@ export async function getProducts(_,{ chosenCategory }) {
   }
 
 
-
   const {data, error} = await query
   console.log("New Products Data--", data)
   if (error) {
