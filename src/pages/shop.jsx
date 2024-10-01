@@ -53,11 +53,11 @@ const Shop = () => {
   return (
     <>
     <div className='h-28 bg-[#5f7252]  flex flex-col items-center justify-center mt-10'><h1 className='font-Poppins text-center text-5xl font-bold tracking-tight'>Shop  our  Handpicked  Selection  of  products  for  your  workout</h1></div>
-    <div className='flex mt-10 w-full'>
+    <div className='flex mt-10 w-full mx-2'>
         <Select
           value={chosenCategory} // Bind selected value to chosenCategory state
           onValueChange={setChosenCategory} // Update state when a category is selected
-          className="flex-1"
+          className="flex-1 p-10"
         >
           <SelectTrigger className="w-[300px]"> {/* Width 300px */}
             <SelectValue placeholder={chosenCategory} /> {/* Show selected value or placeholder */}
