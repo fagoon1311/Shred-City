@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button } from './ui/button';
 import { ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ name, description, price, imageUrl }) => {
+const ProductCard = ({ productid, name, description, price, imageUrl }) => {
   return (
+    <Link to={`/item/${productid}`}>
     <div className='flex flex-col h-[25rem] w-[20rem] items-center m-10 bg-black border-2 rounded-xl overflow-hidden gap-3'>
       <div className='h-[50%] w-full overflow-hidden'> {/* Container to hide overflow */}
         <img 
@@ -27,6 +29,7 @@ const ProductCard = ({ name, description, price, imageUrl }) => {
         </Button>
       </div>
     </div>
+    </Link>
   );
 }
 

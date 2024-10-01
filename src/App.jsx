@@ -7,6 +7,7 @@ import { ThemeProvider } from './components/themeprovider'
 import Shop from './pages/shop'
 import MyMemberships from './pages/mymemberships'
 import ProtectedRoute from './components/protectedroute'
+import Item from './pages/item'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path:'/shop',
         element:<Shop />
+      },
+      {
+        path:'/item/:id',
+        element:<Item />
       },
       {
         path:'/my-memberships',

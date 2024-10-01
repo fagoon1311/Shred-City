@@ -53,7 +53,7 @@ const Shop = () => {
   return (
     <>
     <div className='h-28 bg-[#5f7252]  flex flex-col items-center justify-center mt-10'><h1 className='font-Poppins text-center text-5xl font-bold tracking-tight'>Shop  our  Handpicked  Selection  of  products  for  your  workout</h1></div>
-    <div className='flex mt-10 w-full mx-2'>
+    <div className='flex mt-10 w-full mx-4'>
         <Select
           value={chosenCategory} // Bind selected value to chosenCategory state
           onValueChange={setChosenCategory} // Update state when a category is selected
@@ -85,6 +85,7 @@ const Shop = () => {
             productsData.map((product, index) => {
               if(product?.category){
                 return (<ProductCard 
+                  productid={product.id}
                   key={index} 
                   name={product.name} 
                   description={product.description} 
