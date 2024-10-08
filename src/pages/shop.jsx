@@ -80,7 +80,7 @@ const Shop = () => {
     {
     productsData && (
       <div className='flex justify-center w-full'>
-        <div className='mt-8 mx-auto w-full grid md:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center'>
+        <div className='mt-8 mx-6 w-full grid md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center'>
           {
             productsData.map((product, index) => {
               if(product?.category){
