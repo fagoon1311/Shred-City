@@ -46,3 +46,13 @@ export async function getSingleProduct(_,{product_id}){
   console.log(data)
   return data
 }
+
+export async function addToCart(token, _, itemData){
+  const supabase = await supabaseClient(token)
+    const {data ,error} = await supabase.from('Cart').insert([itemData]).select()
+    if(error){
+        console.error("Error Adding items in cart")
+        return null
+    }
+    return data
+}

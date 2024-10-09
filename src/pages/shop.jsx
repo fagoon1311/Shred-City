@@ -2,12 +2,15 @@ import { getCategories, getProducts } from '@/api/apiShop'
 import ProductCard from '@/components/productcard'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import useFetch from '@/hooks/useFetch'
-import { useUser } from '@clerk/clerk-react'
+import { SignIn, useUser } from '@clerk/clerk-react'
 import React, { useEffect, useState } from 'react'
 import { BarLoader, PropagateLoader } from 'react-spinners'
 
 const Shop = () => {
+  const {user, isLoaded, isSignedIn} = useUser()
+  const [showSignIn, setShowSignIn] = useState(false)
   const [chosenCategory, setChosenCategory] = useState("All Products")
+
   const {
     loading: loadingProducts,
     error: errorProducts,
@@ -15,6 +18,7 @@ const Shop = () => {
     fn: fnProducts,
   } = useFetch(getProducts, { chosenCategory }, false); // Pass `false` to skip authentication
 
+  console.log("USER:",user)
 
   const {
     loading: loadingCategories,
@@ -30,6 +34,13 @@ const Shop = () => {
   useEffect(() => {
     fnProducts(); // Fetch products without requiring login
   }, [chosenCategory]);
+
+  const handleOverlayClick = (e) =>{
+    if(e.target === e.currentTarget){
+      setShowSignIn(false)
+      
+    }
+  }
 
   //if(productsData) console.log(productsData)
   if (loadingProducts) {
@@ -91,9 +102,22 @@ const Shop = () => {
                   description={product.description} 
                   imageUrl={product.image_url} 
                   price={product.price}
+                  isSignedIn={isSignedIn}
+                  isLoaded={isLoaded}
+                  showSignIn={showSignIn}
+                  setShowSignIn={setShowSignIn}
+                  user={user}
                 />)
               }})
           }
+          {
+          showSignIn && <div className='fixed inset-10 z-30 flex items-center justify-center' onClick={handleOverlayClick}>
+          <SignIn 
+            signUpForceRedirectUrl='/shop'
+            fallbackRedirectUrl='/shop'            
+          />
+          </div>
+        }
         </div>
       </div>
     )
