@@ -10,8 +10,8 @@ const AppLayout = () => {
         <main className='min-h-screen container min-w-full'>
           <Header />
           <Outlet />
-          <Footer />
         </main>
+        <Footer />
         <div className='p-2 text-center bg-{#0e100f} mt-2'>Made by Fagoon</div>
     </div>
     

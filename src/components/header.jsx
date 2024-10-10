@@ -46,7 +46,11 @@ const Header = () => {
                       }
                     }}>
                       <UserButton.MenuItems>
+                        { user?.unsafeMetadata?.role==='admin' ?
+                        <UserButton.Link label='Memberships and Orders' labelIcon={<Handshake size={15} />} href='/admin-data'/>   
+                          :
                         <UserButton.Link label='My Membership' labelIcon={<Handshake size={15} />} href='/my-memberships'/>
+                        }              
                       </UserButton.MenuItems>
                     </UserButton>
                   </SignedIn>

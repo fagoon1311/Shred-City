@@ -8,6 +8,7 @@ import Shop from './pages/shop'
 import MyMemberships from './pages/mymemberships'
 import ProtectedRoute from './components/protectedroute'
 import Item from './pages/item'
+import MyCart from './pages/mycart'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             <MyMemberships />
           </ProtectedRoute>
         )
+      },
+      {
+        path:'/my-cart',
+        element:<MyCart />
       }
   
     ]
