@@ -28,6 +28,8 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
     // Add to cart logic here
   }
 
+  if(errorItemToCart) console.error('Error Adding item to cart', errorItemToCart)
+
   return (
     <div className='flex flex-col h-[25rem] w-[20rem] items-center m-10 bg-black border-2 rounded-xl overflow-hidden gap-3'>
       <Link to={`/item/${productid}`} className='h-[50%] w-full overflow-hidden'> {/* Wrap only image in link */}

@@ -1,4 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
+import supabaseClient from "@/utils/supabase";
+
 
 // Initialize Supabase using import.meta.env for Vite
 const supabase = createClient(
@@ -48,8 +50,10 @@ export async function getSingleProduct(_,{product_id}){
 }
 
 export async function addToCart(token, _, itemData){
+  console.log(itemData)
+  console.log('Add to cart executed')
   const supabase = await supabaseClient(token)
-    const {data ,error} = await supabase.from('Cart').insert([itemData]).select()
+  const {data ,error} = await supabase.from('Cart').insert([itemData]).select()
     if(error){
         console.error("Error Adding items in cart")
         return null

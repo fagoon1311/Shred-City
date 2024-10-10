@@ -9,6 +9,8 @@ const useFetch = (cb, options = {}, requiresAuth = true) => {
   const { session } = useSession();
 
   const fn = async (...args) => {
+    console.log('Arguments passed to useFetch:', args);
+
     setLoading(true);
     setError(null);
 
