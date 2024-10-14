@@ -17,7 +17,6 @@ export async function getProducts(_,{ chosenCategory }) {
     
   }
 
-
   const {data, error} = await query
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -39,7 +38,6 @@ export async function getCategories() {
 }
 
 export async function getSingleProduct(_,{product_id}){
-  console.log("Api called")
   const {data, error} = await supabase.from('products').select('*').eq('id', product_id).single()
   if(error){
     console.error("Error getting product information.", error)
@@ -50,8 +48,6 @@ export async function getSingleProduct(_,{product_id}){
 }
 
 export async function addToCart(token, _, itemData){
-  console.log(itemData)
-  console.log('Add to cart executed')
   const supabase = await supabaseClient(token)
   const {data ,error} = await supabase.from('Cart').insert([itemData]).select()
     if(error){
@@ -59,4 +55,14 @@ export async function addToCart(token, _, itemData){
         return null
     }
     return data
+}
+
+export async function getCart(token,{ userId }){
+  const supabase = await supabaseClient(token)
+  const {data, error} = await supabase.from('Cart').select('*').eq('user_id', userId)
+  if(error){
+    console.error('Error fetching cart items')
+    return null
+  }
+  return data
 }

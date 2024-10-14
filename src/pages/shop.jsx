@@ -8,6 +8,7 @@ import { BarLoader, PropagateLoader } from 'react-spinners';
 import MyCart from './mycart';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -79,12 +80,12 @@ const Shop = () => {
           </SelectContent>
         </Select>
       <div className="relative inline-block">
-        <Button 
+        <Link to='/my-cart'><Button 
           variant='neon' 
           onClick={() => setCount(count + 1)}
         >
           My Cart
-        </Button>
+        </Button></Link>
         {count > 0 && (
           <div className="absolute top-0 right-0 -mt-2 -mr-2 h-6 w-6 rounded-full bg-red-500 text-white text-sm flex items-center justify-center">
             {count}
