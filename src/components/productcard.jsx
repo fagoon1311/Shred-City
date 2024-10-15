@@ -23,7 +23,8 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
       user_id:user.id,
       name: name,
       quantity: 1,
-      price: price
+      price: price,
+      image_url:imageUrl
     })
     // Add to cart logic here
   }
