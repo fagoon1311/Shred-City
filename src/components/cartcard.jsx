@@ -5,9 +5,9 @@ const CartCard = ({ name, quantity, price, image, onRemove }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className='flex flex-col md:flex-row gap-4 m-4'>
-      {/* Left section with product details */}
-      <div className='w-full md:w-2/4 bg-[#0e100f] rounded-xl p-4'>
+    <div className='w-full flex flex-col md:flex-row gap-4 m-4'>
+      {/* Full width card */}
+      <div className='w-full bg-[#0e100f] rounded-xl p-4'>
         <div className='grid grid-cols-3 md:grid-cols-6 gap-4 items-center'>
           {image && (
             <img 
@@ -36,15 +36,10 @@ const CartCard = ({ name, quantity, price, image, onRemove }) => {
             {isHovered ? (
               <span>Remove</span> // Changed text to "Remove"
             ) : (
-              <X className='w-5 h-5' />
+              <X className='w-5 h-5' color='#ff0000'/>
             )}
           </div>
         </div>
-      </div>
-
-      {/* Right section (currently empty) */}
-      <div className='w-full md:w-2/4'>
-        {/* You can add any additional content here */}
       </div>
     </div>
   );
