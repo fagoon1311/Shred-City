@@ -60,7 +60,7 @@ const MyCart = () => {
       {/* Left section with cart cards */}
       <div className="md:w-1/2 w-full p-4 flex flex-col">
         {/* Heading for the items */}
-        <h2 className="text-white text-xl font-semibold mb-4">Items</h2>
+        <h2 className="text-white text-2xl ml-7 font-semibold mb-4">Cart Items</h2>
         
         {/* Scrollable list of cart items */}
         <div
@@ -90,20 +90,45 @@ const MyCart = () => {
       </div>
   
       {/* Right section with form */}
-      <div className="md:w-1/2 w-full bg-[#0e100f] flex flex-col justify-between p-4">
-        <div className='p-5 mt-10'>
-          <form className='gap-10 flex flex-col p-2'>
-            <div className='flex flex-col'>
-              <Input className="bg-white text-black mx-2 my-2 w-full border-0" type='text' placeholder="Card Number" />
-              <Input className="bg-white text-black mx-2 my-2 w-full border-0" type='text' placeholder="Cardholder's Name" />
+      <div className="md:w-1/2 w-full bg-[#0e100f] flex flex-col p-4 rounded-xl">
+        {/* Image section */}
+        <h1 className="text-white text-2xl ml-7 font-semibold mb-4">Card Details</h1>
+        <h1 className="text-white text-sm ml-7 mt-4">Accepted Cards</h1>
+        <div className="flex p-5">
+          <img src="/cards.png" className="h-12 w-52 object-contain" alt="Card brands" />
+        </div>
+
+        {/* Form section */}
+        <div className="p-5">
+          <form className=" flex flex-col ">
+            <div className="flex flex-col">
+              <Input
+                className="bg-white text-black mx-2 my-2 w-full border-0 rounded-lg p-3"
+                type="text"
+                placeholder="Card Number"
+              />
+              <Input
+                className="bg-white text-black mx-2 my-2 w-full border-0 rounded-lg p-3"
+                type="text"
+                placeholder="Cardholder's Name"
+              />
             </div>
-            <div className='flex flex-row justify-between items-center'>
-              <Input className="bg-white text-black mx-2 my-2 flex-1 border-0" type='text' placeholder="Expiration" />
-              <Input className="bg-white text-black mx-2 my-2 flex-1 border-0" type='text' placeholder="CVV" />
+            <div className="flex flex-row justify-between items-center">
+              <Input
+                className="bg-white text-black mx-2 my-2 flex-1 border-0 rounded-lg p-3"
+                type="text"
+                placeholder="Expiration"
+              />
+              <Input
+                className="bg-white text-black mx-2 my-2 flex-1 border-0 rounded-lg p-3"
+                type="text"
+                placeholder="CVV"
+              />
             </div>
           </form>
         </div>
       </div>
+
     </div>
   );
 };
