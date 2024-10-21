@@ -66,3 +66,11 @@ export async function getCart(token,{ userId }){
   }
   return data
 }
+
+export async function removeItemFromCart(token, {cartItemId}) {
+  const supabase = await supabaseClient(token)
+  const {data, error} = await supabase.from('Cart').delete().eq('id', cartItemId).select()
+  
+
+  
+}

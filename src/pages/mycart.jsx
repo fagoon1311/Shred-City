@@ -31,7 +31,7 @@ const schema = z.object({
 const MyCart = () => {
   const { user, isLoaded } = useUser();
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
-
+  console.log(user)
   const {
     loading: loadingCart,
     error: errorCart,
@@ -92,35 +92,45 @@ const MyCart = () => {
       {/* Right section with form */}
       <div className="md:w-1/2 w-full bg-[#0e100f] flex flex-col p-4 rounded-xl">
         {/* Image section */}
-        <h1 className="text-white text-2xl ml-7 font-semibold mb-4">Card Details</h1>
+        <div className='flex justify-between mt-5'>
+          <h1 className="text-white text-2xl ml-7 font-semibold mb-4">Card Details</h1>
+          <img src={user?.imageUrl} className='h-20 rounded-xl'></img>
+        </div>
         <h1 className="text-white text-sm ml-7 mt-4">Accepted Cards</h1>
-        <div className="flex p-5">
-          <img src="/cards.png" className="h-12 w-52 object-contain" alt="Card brands" />
+        <div className="flex p-5 gap-2">
+          <img src="/mastercard.png" alt="Card brands" className='px-1 h-10'/>
+          <img src="/visa.png" alt="Card brands" className='px-1 h-10'/>
+          <img src="/amex.png" alt="Card brands" className='px-1 h-10'/>
+          <img src="/paytm.png" alt="Card brands" className='px-1 h-10'/>
+          <img src="/google-pay.png" alt="Card brands" className='px-1 h-10'/>
         </div>
 
         {/* Form section */}
         <div className="p-5">
-          <form className=" flex flex-col ">
+          <form className=" flex flex-col " onSubmit={handleSubmit(data => console.log(data))}>
             <div className="flex flex-col">
               <Input
-                className="bg-white text-black mx-2 my-2 w-full border-0 rounded-lg p-3"
+                {...register("cardNumber")}
+                className="bg-white text-black mx-2 my-3 w-[100] border-0 rounded-lg p-3"
                 type="text"
                 placeholder="Card Number"
               />
               <Input
-                className="bg-white text-black mx-2 my-2 w-full border-0 rounded-lg p-3"
+                {...register("cardHolderName")}
+                className="bg-white text-black mx-2 my-3 w-[100] border-0 rounded-lg p-3"
                 type="text"
                 placeholder="Cardholder's Name"
               />
             </div>
             <div className="flex flex-row justify-between items-center">
               <Input
-                className="bg-white text-black mx-2 my-2 flex-1 border-0 rounded-lg p-3"
+                {...register("expiration")}
+                className="bg-white text-black mx-2 my-3 flex-1 border-0 rounded-lg p-3"
                 type="text"
                 placeholder="Expiration"
               />
               <Input
-                className="bg-white text-black mx-2 my-2 flex-1 border-0 rounded-lg p-3"
+                className="bg-white text-black mx-2 my-3 flex-1 border-0 rounded-lg p-3"
                 type="text"
                 placeholder="CVV"
               />
@@ -128,7 +138,6 @@ const MyCart = () => {
           </form>
         </div>
       </div>
-
     </div>
   );
 };

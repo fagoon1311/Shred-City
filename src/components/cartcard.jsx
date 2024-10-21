@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
-const CartCard = ({ name, quantity, price, image, onRemove }) => {
+const CartCard = ({ name, quantity, price, image }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const onRemove = () => {
+    
+  }
   return (
     <div className='w-full flex flex-col md:flex-row gap-4 m-4'>
       {/* Full width card */}
