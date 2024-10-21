@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import useFetch from '@/hooks/useFetch';
+import { removeItemFromCart } from '@/api/apiShop';
 
-const CartCard = ({ name, quantity, price, image }) => {
+const CartCard = ({id, name, quantity, price, image }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const {
+    loading:loadingDeleteItem,
+    fn:deleteItem
+  } = useFetch(removeItemFromCart, {
+    cartItemId:id
+  })
+  console.log(id)
   const onRemove = () => {
-    
+     deleteItem()
   }
   return (
     <div className='w-full flex flex-col md:flex-row gap-4 m-4'>

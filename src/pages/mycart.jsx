@@ -31,7 +31,7 @@ const schema = z.object({
 const MyCart = () => {
   const { user, isLoaded } = useUser();
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
-  console.log(user)
+  //console.log(user)
   const {
     loading: loadingCart,
     error: errorCart,
@@ -46,7 +46,7 @@ const MyCart = () => {
   }, [isLoaded]);
 
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
-  if (cartItems) console.log(cartItems);
+  //if (cartItems) console.log(cartItems);
   if (!isLoaded || loadingCart) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -77,9 +77,10 @@ const MyCart = () => {
             }
           `}
         >
-          {cartItems?.map((item) => (
+          {cartItems?.map((item,index) => (
             <CartCard
-              key={item.id}
+              key={index}
+              id={item.id}
               name={item.name}
               quantity={item.quantity}
               price={item.price}

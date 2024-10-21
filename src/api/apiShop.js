@@ -67,10 +67,14 @@ export async function getCart(token,{ userId }){
   return data
 }
 
-export async function removeItemFromCart(token, {cartItemId}) {
+export async function removeItemFromCart(token,{ cartItemId }) {
+  console.log("cart item id for deletion",cartItemId)
   const supabase = await supabaseClient(token)
   const {data, error} = await supabase.from('Cart').delete().eq('id', cartItemId).select()
-  
+  if(error){
+    console.error("Error Deleting item:", error)
+    return null
+  }
+  return data
 
-  
 }
