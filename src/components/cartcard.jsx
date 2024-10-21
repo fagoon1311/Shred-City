@@ -12,9 +12,8 @@ const CartCard = ({id, name, quantity, price, image }) => {
   } = useFetch(removeItemFromCart, {
     cartItemId:id
   })
-  console.log(id)
-  const onRemove = () => {
-     deleteItem()
+  const onRemove = async() => {
+     await deleteItem()
   }
   return (
     <div className='w-full flex flex-col md:flex-row gap-4 m-4'>
