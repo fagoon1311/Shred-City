@@ -3,9 +3,9 @@ import { X } from 'lucide-react';
 import useFetch from '@/hooks/useFetch';
 import { removeItemFromCart } from '@/api/apiShop';
 
-const CartCard = ({id, name, quantity, price, image }) => {
+const CartCard = ({id, name, quantity, price, image, onItemRemoval }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  
   const {
     loading:loadingDeleteItem,
     fn:deleteItem
@@ -14,6 +14,7 @@ const CartCard = ({id, name, quantity, price, image }) => {
   })
   const onRemove = async() => {
      await deleteItem()
+     onItemRemoval(id)
   }
   return (
     <div className='w-full flex flex-col md:flex-row gap-4 m-4'>

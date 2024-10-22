@@ -3,7 +3,8 @@ import CartCard from '@/components/cartcard';
 import { Input } from '@/components/ui/input';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
-import React, { useEffect } from 'react';
+import { Carrot } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PropagateLoader } from 'react-spinners';
 import { z } from 'zod';
@@ -31,6 +32,8 @@ const schema = z.object({
 const MyCart = () => {
   const { user, isLoaded } = useUser();
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
+  const [cart, setCart] = useState([])
+  
   //console.log(user)
   const {
     loading: loadingCart,
@@ -44,6 +47,14 @@ const MyCart = () => {
   useEffect(() => {
     if (isLoaded) fnCart();
   }, [isLoaded]);
+
+  useEffect(()=>{
+    if(cartItems) setCart(cartItems)
+  }, [cartItems])
+
+  const handleItemRemoval = (id) => {
+    setCart(cart.filter(item=>item.id !== id))
+  }
 
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
   //if (cartItems) console.log(cartItems);
@@ -77,7 +88,7 @@ const MyCart = () => {
             }
           `}
         >
-          {cartItems?.map((item,index) => (
+          {cart?.map((item,index) => (
             <CartCard
               key={index}
               id={item.id}
@@ -85,6 +96,7 @@ const MyCart = () => {
               quantity={item.quantity}
               price={item.price}
               image={item.image_url}
+              onItemRemoval={handleItemRemoval}
             />
           ))}
         </div>
