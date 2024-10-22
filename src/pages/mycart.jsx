@@ -1,9 +1,10 @@
 import { getCart } from '@/api/apiShop';
 import CartCard from '@/components/cartcard';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
-import { Carrot } from 'lucide-react';
+import { ArrowRight, Carrot } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PropagateLoader } from 'react-spinners';
@@ -26,13 +27,18 @@ const schema = z.object({
       const currentYear = new Date().getFullYear() % 100;
       const currentMonth = new Date().getMonth() + 1;
       return year > currentYear || (year === currentYear && month >= currentMonth);
-    }, { message: "Expiration date should be in future" })
+    }, { message: "Expiration date should be in future" }),
+    cvv: z
+    .string()
+    .min(3, {message: "Enter a valid CVV"})
+    .max(3, {message: "Enter a valid CVV"})
 });
 
 const MyCart = () => {
   const { user, isLoaded } = useUser();
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
   const [cart, setCart] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
   
   //console.log(user)
   const {
@@ -52,8 +58,14 @@ const MyCart = () => {
     if(cartItems) setCart(cartItems)
   }, [cartItems])
 
+  useEffect(()=>{
+    if(cart){
+      setTotalPrice(cart?.reduce((acc, curr)=> acc + curr.price * curr.quantity, 0))
+    }
+  },[cart])
+
   const handleItemRemoval = (id) => {
-    setCart(cart.filter(item=>item.id !== id))
+    setCart(cart?.filter(item=>item.id !== id))
   }
 
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
@@ -70,7 +82,7 @@ const MyCart = () => {
     <div className="flex flex-col md:flex-row gap-4 p-10 items-stretch h-screen">
       {/* Left section with cart cards */}
       <div className="md:w-1/2 w-full p-4 flex flex-col">
-        {/* Heading for the items */}
+
         <h2 className="text-white text-2xl ml-7 font-semibold mb-4">Cart Items</h2>
         
         {/* Scrollable list of cart items */}
@@ -143,6 +155,7 @@ const MyCart = () => {
                 placeholder="Expiration"
               />
               <Input
+              {...register("cvv")}
                 className="bg-white text-black mx-2 my-3 flex-1 border-0 rounded-lg p-3"
                 type="text"
                 placeholder="CVV"
@@ -150,6 +163,19 @@ const MyCart = () => {
             </div>
           </form>
         </div>
+        <div className='h-2 bg-gray-400'></div>
+        <div className='rounded-l p-10'>
+            <span className='flex justify-between'><h1>Cart Total</h1><h1>₹ {totalPrice}</h1></span>
+            <span className='flex justify-between'><h1>Shipping</h1><h1> ₹ 99</h1></span>
+            <span className='flex justify-between'><h1>Total(including taxes)</h1><h1> ₹ {totalPrice + 99}</h1></span>
+        </div>
+        <Button variant='neon'>
+          <div className='flex justify-between w-full items-center'>
+            <h1>₹ {totalPrice}</h1>
+            <span className='flex items-center justify-center'><h1 className='mx-2'>Checkout</h1><ArrowRight /></span>
+          </div>
+        </Button>
+
       </div>
     </div>
   );
