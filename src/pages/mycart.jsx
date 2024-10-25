@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Carrot } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
