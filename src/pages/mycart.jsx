@@ -36,7 +36,9 @@ const schema = z.object({
 
 const MyCart = () => {
   const { user, isLoaded } = useUser();
-  const { register, handleSubmit, control, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
+    resolver: zodResolver(schema)
+  });
   const [cart, setCart] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   
