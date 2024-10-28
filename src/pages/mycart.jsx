@@ -1,5 +1,6 @@
 import { getCart } from '@/api/apiShop';
 import CartCard from '@/components/cartcard';
+import DeliveryDetails from '@/components/deliverydetails';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import useFetch from '@/hooks/useFetch';
@@ -42,6 +43,8 @@ const MyCart = () => {
   });
   const [cart, setCart] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
+  const [deliveryData, setDeliveryData] = useState(null)
+  const [showDeliveryDetails, setShowDeliveryDetails] = useState(false)
   
   //console.log(user)
   const {
@@ -71,6 +74,19 @@ const MyCart = () => {
     setCart(cart?.filter(item=>item.id !== id))
   }
 
+  const onSubmit = (data) => {
+    setShowDeliveryDetails(true)
+  }
+  const handleDeliveryData = (data) =>{
+    setDeliveryData(data)
+    const orderData = {
+      cartItems:cart,
+      deliveryDetails:data,
+      totalPrice
+    }
+    console.log("Merged DAta",orderData)
+  }
+
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
   //if (cartItems) console.log(cartItems);
   if (!isLoaded || loadingCart) {
@@ -80,8 +96,9 @@ const MyCart = () => {
       </div>
     );
   }
-
+  console.log("show dd - ", showDeliveryDetails)
   return (
+    <>
     <div className="flex flex-col md:flex-row gap-4 p-10 items-stretch h-screen">
       {/* Left section with cart cards */}
       <div className="md:w-1/2 w-full p-4 flex flex-col">
@@ -135,7 +152,7 @@ const MyCart = () => {
 
         {/* Form section */}
         <div className="p-5">
-          <form className=" flex flex-col " onSubmit={handleSubmit(data => console.log(data))}>
+          <form className=" flex flex-col" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col">
               <Input
                 {...register("cardNumber")}
@@ -143,44 +160,68 @@ const MyCart = () => {
                 type="text"
                 placeholder="Card Number"
               />
+              {errors.cardNumber && (
+                <p className="text-red-500">{errors.cardNumber.message}</p>
+              )}
               <Input
                 {...register("cardHolderName")}
                 className="bg-white text-black mx-2 my-3 w-[100] border-0 rounded-lg p-3"
                 type="text"
                 placeholder="Cardholder's Name"
               />
+              {errors.cardHolderName && (
+                <p className="text-red-500">{errors.cardHolderName.message}</p>
+              )}
             </div>
             <div className="flex flex-row justify-between items-center">
               <Input
                 {...register("expiration")}
                 className="bg-white text-black mx-2 my-3 flex-1 border-0 rounded-lg p-3"
-                type="text"
-                placeholder="Expiration"
+                type="text" 
+                placeholder="Expiration MM/YY"
               />
+              {errors.expiration && (
+                <p className="text-red-500">{errors.expiration.message}</p>
+              )}
               <Input
               {...register("cvv")}
                 className="bg-white text-black mx-2 my-3 flex-1 border-0 rounded-lg p-3"
                 type="text"
                 placeholder="CVV"
               />
+              {errors.cvv && (
+                <p className="text-red-500">{errors.cvv.message}</p>
+              )}
             </div>
+            <div className='rounded-l p-10'>
+              <span className='flex justify-between'><h1>Cart Total</h1><h1>₹ {totalPrice}</h1></span>
+              <span className='flex justify-between'><h1>Shipping</h1><h1> ₹ 99</h1></span>
+              <span className='flex justify-between'><h1>Total(including taxes)</h1><h1> ₹ {totalPrice + 99}</h1></span>
+            </div>
+
+            <Button variant="neon" type="submit">
+              <div className="flex justify-between w-full items-center">
+                <h1>₹ {totalPrice}</h1>
+                <span className="flex items-center justify-center">
+                  <h1 className="mx-2">Checkout</h1>
+                  <ArrowRight />
+                </span>
+              </div>
+            </Button>
+
           </form>
         </div>
-        <div className='h-2 bg-gray-400'></div>
-        <div className='rounded-l p-10'>
-            <span className='flex justify-between'><h1>Cart Total</h1><h1>₹ {totalPrice}</h1></span>
-            <span className='flex justify-between'><h1>Shipping</h1><h1> ₹ 99</h1></span>
-            <span className='flex justify-between'><h1>Total(including taxes)</h1><h1> ₹ {totalPrice + 99}</h1></span>
-        </div>
-        <Button variant='neon'>
-          <div className='flex justify-between w-full items-center'>
-            <h1>₹ {totalPrice}</h1>
-            <span className='flex items-center justify-center'><h1 className='mx-2'>Checkout</h1><ArrowRight /></span>
-          </div>
-        </Button>
-
+        
+        
       </div>
     </div>
+    {showDeliveryDetails &&
+      <DeliveryDetails 
+        showDeliveryDetails={showDeliveryDetails} 
+        setShowDeliveryDetails={setShowDeliveryDetails}
+        handleDeliveryData = {handleDeliveryData}/>
+    }
+    </>
   );
 };
 
