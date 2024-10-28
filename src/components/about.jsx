@@ -113,7 +113,7 @@ const About = forwardRef(({user,showSignIn, setShowSignIn, isSignedIn, isLoaded}
                   <p className='text-red-500'>{errors.membership.message}</p>
                 )
               }
-                <Button type='submit' variant='neon' className='mt-5 rounded-3xl w-full'>Submit</Button>
+              <Button type='submit' variant='neon' className='mt-5 rounded-3xl w-full'>Submit</Button>
 
               </form>
               </div>
