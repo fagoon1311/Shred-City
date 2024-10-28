@@ -44,6 +44,7 @@ const MyCart = () => {
   const [cart, setCart] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [deliveryData, setDeliveryData] = useState(null)
+  const [paymentInfo, setPaymentInfo] = useState(null)
   const [showDeliveryDetails, setShowDeliveryDetails] = useState(false)
   
   //console.log(user)
@@ -76,10 +77,12 @@ const MyCart = () => {
 
   const onSubmit = (data) => {
     setShowDeliveryDetails(true)
+    setPaymentInfo(data)
   }
   const handleDeliveryData = (data) =>{
     setDeliveryData(data)
     const orderData = {
+      paymentInfo:paymentInfo,
       cartItems:cart,
       deliveryDetails:data,
       totalPrice
