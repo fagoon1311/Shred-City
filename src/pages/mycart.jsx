@@ -1,4 +1,4 @@
-import { getCart } from '@/api/apiShop';
+import { getCart, addToOrders } from '@/api/apiShop';
 import CartCard from '@/components/cartcard';
 import DeliveryDetails from '@/components/deliverydetails';
 import { Button } from '@/components/ui/button';
@@ -57,6 +57,12 @@ const MyCart = () => {
     userId: user?.id,
   });
 
+  const {
+    loading: loadingOrderToDB,
+    error: errorOrder,
+    fn: fnOrder,
+  } = useFetch(addToOrders)
+
   useEffect(() => {
     if (isLoaded) fnCart();
   }, [isLoaded]);
@@ -82,12 +88,22 @@ const MyCart = () => {
   const handleDeliveryData = (data) =>{
     setDeliveryData(data)
     const orderData = {
+      user:user.id,
       paymentInfo:paymentInfo,
       cartItems:cart,
-      deliveryDetails:data,
+      deliveryDetails:deliveryData,
       totalPrice
     }
     console.log("Merged DAta",orderData)
+    fnOrder({
+      user_id: orderData?.user,
+      name:orderData?.deliveryDetails?.fullName,
+      item:orderData?.cartItems[0],
+      delivery_address:orderData?.deliveryDetails?.address,
+      state: orderData?.deliveryDetails?.state,
+      pincode: orderData?.deliveryDetails?.pincode,
+      amount: orderData?.totalPrice
+    })
   }
 
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
@@ -99,7 +115,7 @@ const MyCart = () => {
       </div>
     );
   }
-  console.log("show dd - ", showDeliveryDetails)
+   
   return (
     <>
     <div className="flex flex-col md:flex-row gap-4 p-10 items-stretch h-screen">
@@ -204,7 +220,7 @@ const MyCart = () => {
 
             <Button variant="neon" type="submit">
               <div className="flex justify-between w-full items-center">
-                <h1>₹ {totalPrice}</h1>
+                <h1>₹ {totalPrice + 99}</h1>
                 <span className="flex items-center justify-center">
                   <h1 className="mx-2">Checkout</h1>
                   <ArrowRight />

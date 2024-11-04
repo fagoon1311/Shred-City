@@ -77,3 +77,13 @@ export async function removeItemFromCart(token,{ cartItemId }) {
   return data
 
 }
+
+export async function addToOrders(token,_,orderData){
+  const supabase = await supabaseClient(token)
+  const {data, error} = await supabase.from('Orders').insert([orderData]).select()
+  if(error){
+    console.error("Error Placing Order:", error)
+    return null
+  }
+  return data
+}
