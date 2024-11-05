@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Carrot } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
 import { z } from 'zod';
 
@@ -255,8 +256,9 @@ const MyCart = () => {
     </>
     :
     <div className='flex items-center justify-center flex-col h-screen'>
+      <img src='./cartImage.png'></img>
       <h1 className='font-Poppins text-6xl font-semibold mb-5'>Your cart’s feeling a little lonely! Let’s fix that</h1>
-      <Button variant='neon' className='rounded-l-full rounded-r-full'>Continue Shopping</Button>
+      <Link to='/shop'><Button variant='neon' className='rounded-l-full rounded-r-full'>Continue Shopping</Button></Link>
     </div>
   );
   
