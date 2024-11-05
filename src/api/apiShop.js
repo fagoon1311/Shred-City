@@ -87,3 +87,13 @@ export async function addToOrders(token,_,orderData){
   }
   return data
 }
+
+export async function emptyCart(token, {userId}){
+  const supabase = await supabaseClient(token)
+  const {data, error} = await supabase.from('Cart').delete().eq('user_id', userId).select()
+  if(error){
+    console.error("Error clearing cart for user:", error)
+    return null
+  }
+  return data
+}

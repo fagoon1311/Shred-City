@@ -1,4 +1,4 @@
-import { getCart, addToOrders } from '@/api/apiShop';
+import { getCart, addToOrders, emptyCart } from '@/api/apiShop';
 import CartCard from '@/components/cartcard';
 import DeliveryDetails from '@/components/deliverydetails';
 import { Button } from '@/components/ui/button';
@@ -46,8 +46,8 @@ const MyCart = () => {
   const [deliveryData, setDeliveryData] = useState(null)
   const [paymentInfo, setPaymentInfo] = useState(null)
   const [showDeliveryDetails, setShowDeliveryDetails] = useState(false)
+  const [showContinueShopping, setshowContinueShopping] = useState(false)
   
-  //console.log(user)
   const {
     loading: loadingCart,
     error: errorCart,
@@ -56,6 +56,14 @@ const MyCart = () => {
   } = useFetch(getCart, {
     userId: user?.id,
   });
+
+  const {
+    loading: deletingCart,
+    error: errorDeletingCart,
+    fn: deleteCart
+  } = useFetch(emptyCart, {
+    userId: user?.id
+  })
 
   const {
     loading: loadingOrderToDB,
@@ -85,30 +93,33 @@ const MyCart = () => {
     setShowDeliveryDetails(true)
     setPaymentInfo(data)
   }
-  const handleDeliveryData = (data) =>{
-    setDeliveryData(data)
+  const handleDeliveryData = (data) => {
+    setDeliveryData(data);
     const orderData = {
-      user:user.id,
-      paymentInfo:paymentInfo,
-      cartItems:cart,
-      deliveryDetails:deliveryData,
+      user: user.id,
+      paymentInfo: paymentInfo,
+      cartItems: cart,
+      deliveryDetails: data, // Use `data` directly here
       totalPrice
-    }
-    console.log("Merged DAta",orderData)
+    };
+
     fnOrder({
       user_id: orderData?.user,
-      name:orderData?.deliveryDetails?.fullName,
-      item:orderData?.cartItems[0],
-      delivery_address:orderData?.deliveryDetails?.address,
+      name: orderData?.deliveryDetails?.fullName,
+      item: orderData?.cartItems[0],
+      delivery_address: orderData?.deliveryDetails?.address,
       state: orderData?.deliveryDetails?.state,
       pincode: orderData?.deliveryDetails?.pincode,
       amount: orderData?.totalPrice
-    })
-  }
+    }).then(() => {
+      deleteCart();
+      setCart([]);
+    });
+};
 
   if (errorCart) return <div className='bg-red-400 rounded-xl'>{errorCart}</div>;
   //if (cartItems) console.log(cartItems);
-  if (!isLoaded || loadingCart) {
+  if (!isLoaded || loadingCart || loadingOrderToDB) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
         <PropagateLoader color="#97fb57" size={40} />
