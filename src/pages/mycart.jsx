@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, Carrot } from 'lucide-react';
+import { ArrowRight, Carrot, ShoppingCart } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -256,7 +256,7 @@ const MyCart = () => {
     </>
     :
     <div className='flex items-center justify-center flex-col h-screen'>
-      <img src='./cartImage.png'></img>
+      <ShoppingCart className='text-[#97fb57] mb-5' size={150}/>
       <h1 className='font-Poppins text-6xl font-semibold mb-5'>Your cart’s feeling a little lonely! Let’s fix that</h1>
       <Link to='/shop'><Button variant='neon' className='rounded-l-full rounded-r-full'>Continue Shopping</Button></Link>
     </div>
