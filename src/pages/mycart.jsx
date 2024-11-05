@@ -128,6 +128,7 @@ const MyCart = () => {
   }
    
   return (
+    cart.length > 0 ?
     <>
     <div className="flex flex-col md:flex-row gap-4 p-10 items-stretch h-screen">
       {/* Left section with cart cards */}
@@ -252,7 +253,13 @@ const MyCart = () => {
         handleDeliveryData = {handleDeliveryData}/>
     }
     </>
+    :
+    <div className='flex items-center justify-center flex-col h-screen'>
+      <h1 className='font-Poppins text-6xl font-semibold mb-5'>Your cart’s feeling a little lonely! Let’s fix that</h1>
+      <Button variant='neon' className='rounded-l-full rounded-r-full'>Continue Shopping</Button>
+    </div>
   );
+  
 };
 
 export default MyCart;
