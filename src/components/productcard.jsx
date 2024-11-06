@@ -14,7 +14,6 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
 
   const handleAddToCart = (event) => {
     event.stopPropagation(); // Prevent the event from bubbling up to the Link
-    console.log("Add to cart pressed.");
     if (!isSignedIn && isLoaded) {
       setShowSignIn(true);
       return;
