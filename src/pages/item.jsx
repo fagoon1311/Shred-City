@@ -1,6 +1,7 @@
 import { getSingleProduct } from '@/api/apiShop'
 import { Button } from '@/components/ui/button'
 import useFetch from '@/hooks/useFetch'
+import { CircleCheck, TicketCheckIcon } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { PropagateLoader } from 'react-spinners'
@@ -40,7 +41,11 @@ const Item = () => {
             </h1>
             <p className="text mb-4 font-Poppins rounded-2xl border-2 p-4">Fuel your fitness journey with our premium range of gym essentials designed to keep you performing at your best. Whether you're looking to conquer your workouts in high-performance footwear, boost your progress with quality supplements, or track every step with cutting-edge wearables, our products are crafted to support every stride, lift, and goal. Elevate your training experience and embrace a lifestyle that brings your fitness vision to life.</p> 
             <span className='w-full'><Button variant="neon" className="w-1/3 py-3">Add to Cart</Button></span>
-            <div className='bg-gray-500 h-[1px] mt-5 w-full'></div>
+            <div className='bg-gray-500 h-[1px] mt-5 mb-5 w-full'></div>
+            <h1 className='text-base font-medium text-gray-400'>Safe Shipping</h1>
+            <span className='w-full flex gap-2 items-center'><CircleCheck color='#5f7252' size='20'/><p className='text-base font-medium text-gray-400'>No-Risk Money Back Guarantee</p></span>
+            <span className='w-full flex gap-2 items-center'><CircleCheck color='#5f7252' size='20'/><p className='text-base font-medium text-gray-400'>Hassle Free Refunds</p></span>
+            <span className='w-full flex gap-2 items-center'><CircleCheck color='#5f7252' size='20'/><p className='text-base font-medium text-gray-400'>Secure Payments</p></span>
           </div>
         </div>
       );
