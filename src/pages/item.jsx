@@ -102,7 +102,7 @@ const Item = () => {
 
                 {/* Image Section */}
                 <div className="flex flex-1 items-center justify-center pr-10">
-                    <img className="rounded-lg h-[20rem] md:h-[30rem] lg:h-[30rem]" src={itemData?.image_url} alt={itemData?.name} />
+                    <img className="rounded-lg h-[20rem] w-[20rem] md:h-[30rem] md:w-[20rem] lg:h-[30rem] lg:w-[30rem]" src={itemData?.image_url} alt={itemData?.name} />
                 </div>
 
                 {/* Product Details Section */}
