@@ -4,7 +4,7 @@ import useFetch from '@/hooks/useFetch'
 import { CircleCheck } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { PropagateLoader } from 'react-spinners'
+import { PropagateLoader, MoonLoader } from 'react-spinners'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,12 +13,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { useUser } from '@clerk/clerk-react'
+import { SignIn, useUser } from '@clerk/clerk-react'
 
 
 
 const Item = () => {
-    const {user} = useUser()
+    const { user, isLoaded, isSignedIn } = useUser();
+    const [showSignIn, setShowSignIn] = useState(false);
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1)
     const [errorMessage, setErrorMessage] = useState("");
@@ -57,20 +58,39 @@ const Item = () => {
             setErrorMessage(""); // Clear the message
         }
     }
+
+    const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
+          setShowSignIn(false);
+        }
+      };
     
-    const handleAddToCart = () =>{
+    const handleAddToCart = (event) =>{
+        event.stopPropagation();
+        if(!isSignedIn && isLoaded){
+            setShowSignIn(true)
+            return
+        }
         fnCart({
-            user_id:user.id,
-            name: itemData.name,
+            user_id:user?.id,
+            name: itemData?.name,
             quantity: quantity,
-            price: itemData.price,
-            image_url:itemData.imageUrl
+            price: itemData?.price,
+            image_url:itemData?.imageUrl
           })
     }
 
     useEffect(() => {
         fnItem()
     }, [])
+
+    if(errorItemToCart) console.error("Something went wrong", errorItemToCart)
+    
+    if(loadingNewItemToCart) return (
+        <div className='flex items-center justify-center h-screen w-screen opacity-35'>
+            <MoonLoader color="#97fb57" size={40}/>
+        </div>
+    )
 
     if (loadingItem) return (
         <div className='flex items-center justify-center h-screen w-screen'>
@@ -151,6 +171,11 @@ const Item = () => {
                 <h1 className='text-2xl font-semibold mb-2'>Description</h1>
                 <p className="text-gray-400">{itemData?.description}</p>
             </div>
+            {showSignIn && (
+              <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50" onClick={handleOverlayClick}>
+                <SignIn signUpForceRedirectUrl={`/shop/item/${itemData.id}`} fallbackRedirectUrl={`/shop/item/${itemData.id}`} />
+              </div>
+            )}
         </div>
     );
 }
