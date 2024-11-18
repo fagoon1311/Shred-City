@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import useFetch from '@/hooks/useFetch';
 import { SignIn, useUser } from '@clerk/clerk-react';
 import React, { useEffect, useState } from 'react';
-import { BarLoader, PropagateLoader } from 'react-spinners';
+import { MoonLoader, PropagateLoader } from 'react-spinners';
 import MyCart from './mycart';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, ShoppingCartIcon } from 'lucide-react';
@@ -14,6 +14,7 @@ const Shop = () => {
   const { user, isLoaded, isSignedIn } = useUser();
   const [showSignIn, setShowSignIn] = useState(false);
   const [chosenCategory, setChosenCategory] = useState('All Products');
+  const [showMoonLoader, setShowMoonLoader] = useState(false)
   
 
   const {
@@ -44,6 +45,11 @@ const Shop = () => {
     }
   };
 
+  if(showMoonLoader) return (
+    <div className='flex items-center justify-center h-screen w-screen bg-opacity-75'>
+        <MoonLoader color="#97fb57" size={40}/>
+    </div>
+)
   if (loadingProducts || loadingCategories) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -110,6 +116,7 @@ const Shop = () => {
                     showSignIn={showSignIn}
                     setShowSignIn={setShowSignIn}
                     user={user}
+                    setShowMoonLoader={setShowMoonLoader}
                   />
                 );
               }

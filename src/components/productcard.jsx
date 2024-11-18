@@ -4,34 +4,44 @@ import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useFetch from '@/hooks/useFetch';
 import { addToCart } from '@/api/apiShop';
+import { MoonLoader } from 'react-spinners';
 
-const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, isSignedIn, showSignIn, setShowSignIn, user }) => {
+const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, isSignedIn, showSignIn, setShowSignIn, user, setShowMoonLoader }) => {
   const {
     loading: loadingNewItemToCart,
     error: errorItemToCart,
     fn: fnCart
   } = useFetch(addToCart)
 
-  const handleAddToCart = (event) => {
+  const handleAddToCart = async (event) => {
     event.stopPropagation(); // Prevent the event from bubbling up to the Link
     if (!isSignedIn && isLoaded) {
       setShowSignIn(true);
       return;
     }
-    fnCart({
-      user_id:user.id,
-      name: name,
-      quantity: 1,
-      price: price,
-      image_url:imageUrl
-    })
+    setShowMoonLoader(true)
+    
+    try {
+      await fnCart({
+        user_id:user.id,
+        name: name,
+        quantity: 1,
+        price: price,
+        image_url:imageUrl
+      })
+    } catch (error) {
+      console.error("Error Adding item to cart",error)
+    } finally {
+      setShowMoonLoader(false)
+    }
     // Add to cart logic here
   }
 
   if(errorItemToCart) console.error('Error Adding item to cart', errorItemToCart)
+  
 
   return (
-    <div className='flex flex-col h-[25rem] w-[20rem] items-center m-10 bg-black border-2 rounded-xl overflow-hidden gap-3'>
+    <div className='flex flex-col h-[25rem] w-[20rem] items-center m-10 bg-black border-2 rounded-xl overflow-hidden gap-3 select-none'>
       <Link to={`/item/${productid}`} className='h-[50%] w-full overflow-hidden'> {/* Wrap only image in link */}
         <img 
           src={imageUrl} 
