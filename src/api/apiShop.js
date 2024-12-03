@@ -43,7 +43,6 @@ export async function getSingleProduct(_,{product_id}){
     console.error("Error getting product information.", error)
     return null
   }
-  console.log(data)
   return data
 }
 
@@ -96,4 +95,14 @@ export async function emptyCart(token, {userId}){
     return null
   }
   return data
+}
+
+export async function getCartLength(token, {userId}){
+  const supabase = await supabaseClient(token)
+  const {count, error} = await supabase.from('Cart').select('*',{ count: 'exact' }).eq('user_id', userId)
+  if(error){
+    console.error("Error Fetching cart Length")
+    return null
+  }
+  return count
 }

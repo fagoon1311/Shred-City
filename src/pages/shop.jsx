@@ -3,19 +3,21 @@ import ProductCard from '@/components/productcard';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import useFetch from '@/hooks/useFetch';
 import { SignIn, useUser } from '@clerk/clerk-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MoonLoader, PropagateLoader } from 'react-spinners';
 import MyCart from './mycart';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, ShoppingCartIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CartContext from '@/context/CartContext';
 
 const Shop = () => {
   const { user, isLoaded, isSignedIn } = useUser();
   const [showSignIn, setShowSignIn] = useState(false);
   const [chosenCategory, setChosenCategory] = useState('All Products');
   const [showMoonLoader, setShowMoonLoader] = useState(false)
-  
+  const { cartLength, setCartLength } = useContext(CartContext)
+  console.log("This is from shop",cartLength)
 
   const {
     loading: loadingProducts,
@@ -91,11 +93,11 @@ const Shop = () => {
         >
           <ShoppingCartIcon className='mr-2'/> Cart
         </Button></Link>
-        {/* {count > 0 && (
+        {cartLength > 0 && (
           <div className="absolute top-0 right-0 -mt-2 -mr-2 h-6 w-6 rounded-full bg-red-500 text-white text-sm flex items-center justify-center">
-            {count}
+            {cartLength}
           </div>
-        )} */}
+        )}
     </div>
       </div>
       {productsData && (

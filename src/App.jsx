@@ -9,6 +9,7 @@ import MyMemberships from './pages/mymemberships'
 import ProtectedRoute from './components/protectedroute'
 import Item from './pages/item'
 import MyCart from './pages/mycart'
+import CartContextProvider from './context/CartContextProvider'
 
 const router = createBrowserRouter([
   {
@@ -49,9 +50,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
+    <CartContextProvider>
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
     <RouterProvider router={router}/>
     </ThemeProvider>
+    </CartContextProvider>
   )
 }
 

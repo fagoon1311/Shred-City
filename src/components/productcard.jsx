@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from './ui/button';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useFetch from '@/hooks/useFetch';
-import { addToCart } from '@/api/apiShop';
+import { addToCart, getCartLength } from '@/api/apiShop';
 import { MoonLoader } from 'react-spinners';
+import CartContext from '@/context/CartContext';
 
 const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, isSignedIn, showSignIn, setShowSignIn, user, setShowMoonLoader }) => {
   const {
@@ -12,6 +13,7 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
     error: errorItemToCart,
     fn: fnCart
   } = useFetch(addToCart)
+
 
   const handleAddToCart = async (event) => {
     event.stopPropagation(); // Prevent the event from bubbling up to the Link
@@ -25,7 +27,7 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
       await fnCart({
         user_id:user.id,
         name: name,
-        quantity: 1,
+        quantity:  1,
         price: price,
         image_url:imageUrl
       })
@@ -38,6 +40,7 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
   }
 
   if(errorItemToCart) console.error('Error Adding item to cart', errorItemToCart)
+  
   
 
   return (
