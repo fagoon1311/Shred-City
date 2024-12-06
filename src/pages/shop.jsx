@@ -1,4 +1,4 @@
-import { getCategories, getProducts } from '@/api/apiShop';
+import { getCartLength, getCategories, getProducts } from '@/api/apiShop';
 import ProductCard from '@/components/productcard';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import useFetch from '@/hooks/useFetch';
@@ -17,7 +17,6 @@ const Shop = () => {
   const [chosenCategory, setChosenCategory] = useState('All Products');
   const [showMoonLoader, setShowMoonLoader] = useState(false)
   const { cartLength, setCartLength } = useContext(CartContext)
-  console.log("This is from shop",cartLength)
 
   const {
     loading: loadingProducts,
@@ -33,9 +32,26 @@ const Shop = () => {
     fn: fnCategories,
   } = useFetch(getCategories, {}, false);
 
+  const {
+    loading: loadingCartLength,
+    error: errorCartLength,
+    data: userCartLength,
+    fn: fnCartLength,
+  } = useFetch(getCartLength, { userId: user?.id });
+
   useEffect(() => {
     fnCategories();
   }, []);
+
+  useEffect(()=>{
+    if(isSignedIn && user){
+      fnCartLength().then((data) => {
+        console.log("Running from shop and fetched->", data);
+        if (data) setCartLength(data);
+      });
+    }
+  },[isSignedIn, user])
+  
 
   useEffect(() => {
     fnProducts();
@@ -52,7 +68,7 @@ const Shop = () => {
         <MoonLoader color="#97fb57" size={40}/>
     </div>
 )
-  if (loadingProducts || loadingCategories) {
+  if (loadingProducts || loadingCategories || loadingCartLength) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
         <PropagateLoader color="#97fb57" size={40} />
@@ -60,6 +76,8 @@ const Shop = () => {
     );
   }
 
+  if(userCartLength) console.log("Cart length from shop after api has completed calling", userCartLength)
+    
   return (
     <>
       <div className="h-28 bg-[#5f7252] flex flex-col items-center justify-center mt-10">

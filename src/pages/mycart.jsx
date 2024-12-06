@@ -3,11 +3,12 @@ import CartCard from '@/components/cartcard';
 import DeliveryDetails from '@/components/deliverydetails';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import CartContext from '@/context/CartContext';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Carrot, ShoppingCart } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { PropagateLoader } from 'react-spinners';
@@ -39,6 +40,7 @@ const schema = z.object({
 
 const MyCart = () => {
   const { user, isLoaded } = useUser();
+  const {cartLength} = useContext(CartContext)
   const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: zodResolver(schema)
   });
@@ -135,7 +137,10 @@ const MyCart = () => {
       {/* Left section with cart cards */}
       <div className="md:w-1/2 w-full p-4 flex flex-col">
 
-        <h2 className="text-white text-2xl ml-7 font-semibold mb-4">Cart Items</h2>
+        <span className='flex flex-row justify-between'>
+          <h2 className="text-white text-2xl ml-7 font-semibold mb-4">Cart Items </h2>
+          { cartLength > 0 && <h2 className="text-white text-2xl ml-7 font-semibold mb-4">{cartLength} items </h2>}
+        </span>
         
         {/* Scrollable list of cart items */}
         <div

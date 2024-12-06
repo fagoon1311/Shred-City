@@ -14,7 +14,7 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
     fn: fnCart
   } = useFetch(addToCart)
 
-
+  const {cartLength,setCartLength} = useContext(CartContext)
   const handleAddToCart = async (event) => {
     event.stopPropagation(); // Prevent the event from bubbling up to the Link
     if (!isSignedIn && isLoaded) {
@@ -31,6 +31,7 @@ const ProductCard = ({ productid, name, description, price, imageUrl, isLoaded, 
         price: price,
         image_url:imageUrl
       })
+           
     } catch (error) {
       console.error("Error Adding item to cart",error)
     } finally {

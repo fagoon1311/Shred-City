@@ -8,6 +8,7 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+
 export async function getProducts(_,{ chosenCategory }) {
   // const { data, error } = await supabase.from('products').select('*, category:categories(category_name)');
   let query = supabase.from('products').select('*, category:categories(category_name)')
@@ -98,11 +99,13 @@ export async function emptyCart(token, {userId}){
 }
 
 export async function getCartLength(token, {userId}){
+  console.log("API for cart LEngth running")
   const supabase = await supabaseClient(token)
   const {count, error} = await supabase.from('Cart').select('*',{ count: 'exact' }).eq('user_id', userId)
   if(error){
     console.error("Error Fetching cart Length")
     return null
   }
+  console.log("Fetched count from api",count)
   return count
 }

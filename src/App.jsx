@@ -51,9 +51,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <CartContextProvider>
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-    <RouterProvider router={router}/>
-    </ThemeProvider>
+      <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+      <RouterProvider router={router}/>
+      </ThemeProvider>
     </CartContextProvider>
   )
 }

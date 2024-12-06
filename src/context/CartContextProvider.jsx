@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import CartContext from './CartContext'
+import { useUser } from '@clerk/clerk-react'
 
 const CartContextProvider = ({children}) => {
-  const [cartLength, setCartLength] = useState(2)
+  const [cartLength, setCartLength] = useState(10)
+
   return(
     <CartContext.Provider value={{cartLength, setCartLength}}>
         {children}
