@@ -5,15 +5,15 @@ import ServiceDetail from '@/components/servicedetails'
 import { Button } from '@/components/ui/button'
 import { SignIn, useUser } from '@clerk/clerk-react'
 import React, { useEffect, useRef, useState } from 'react'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useOutletContext, useSearchParams } from 'react-router-dom'
 import ProtectedRoute from '@/components/protectedroute'
-
 
 
 const LandingPage = () => {
   const {isLoaded, user, isSignedIn} = useUser()
   const [showSignIn, setShowSignIn] = useState(false)
   const [search, setSearch] = useSearchParams()
+  const aboutRefForScroll = useOutletContext()
 
   useEffect(()=>{
     if(search.get('sign-in')){
@@ -75,7 +75,7 @@ const LandingPage = () => {
         </section>
         {/* About Section */}
         <section>
-          <About ref={aboutRef} user={user} showSignIn={showSignIn} setShowSignIn={setShowSignIn} isSignedIn={isSignedIn} isLoaded={isLoaded} />
+          <About ref={aboutRefForScroll} user={user} showSignIn={showSignIn} setShowSignIn={setShowSignIn} isSignedIn={isSignedIn} isLoaded={isLoaded} />
         </section>
         {
           showSignIn && <div className='fixed inset-10 z-30 flex items-center justify-center' onClick={handleOverlayClick}>

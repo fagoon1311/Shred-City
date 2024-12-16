@@ -4,11 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 
-const Header = () => {
+const Header = ({onContactClick}) => {
     
     const [showSignIn, setShowSignIn] = useState(false)
     const {user} = useUser()
-
     const [search, setSearch] = useSearchParams()
 
     useEffect(()=>{
@@ -34,7 +33,7 @@ const Header = () => {
             <div className='flex gap-12 items-center'>
                 <h1>Memberships</h1>
                 <Link to='/shop'><h1 className='hover:cursor-pointer'><span className='flex gap-2'><ShoppingBag color='#97fb57' />Shop</span></h1></Link>
-                <h1>Contact</h1>
+                <h1 className="hover:cursor-pointer" onClick={onContactClick}>Contact</h1>
                 <div>
                   <SignedOut>
                     <Button variant='neon' className='rounded-l-full rounded-r-full h-8 font-medium text-sm' onClick={()=>setShowSignIn(true)}> Login </Button>
