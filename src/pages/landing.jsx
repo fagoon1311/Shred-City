@@ -6,14 +6,13 @@ import { Button } from '@/components/ui/button'
 import { SignIn, useUser } from '@clerk/clerk-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Navigate, useOutletContext, useSearchParams } from 'react-router-dom'
-import ProtectedRoute from '@/components/protectedroute'
 
 
 const LandingPage = () => {
   const {isLoaded, user, isSignedIn} = useUser()
   const [showSignIn, setShowSignIn] = useState(false)
   const [search, setSearch] = useSearchParams()
-  const aboutRefForScroll = useOutletContext()
+  const {aboutRefForScroll, scrollToAbout, memberShipRefForScroll, scrollToMemberShipCards} = useOutletContext()
 
   useEffect(()=>{
     if(search.get('sign-in')){
@@ -28,14 +27,6 @@ const LandingPage = () => {
     }
   }
 
-  const aboutRef = useRef() 
-  const handleTrialBooking = (ref) => {
-      if (ref?.current) {
-        window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
-      } else {
-        console.error("Ref is not available yet.");
-    }  
-  }
   return (
     <div>
       <main>
@@ -44,7 +35,7 @@ const LandingPage = () => {
           <h1 className="font-Poppins text-white   lg:text-8xl font-semibold md:text-6xl">Crush your health and <br></br>fitness goals in no time</h1>
           <p className='font-Poppins text-white mt-5 text-center md:text-sm'>It doesn’t matter if your goal is to get stronger, burn fat, or to just stay fit <br></br> our world class coaches will guide you every step of the way.</p>
           <Button variant='neon' className='mt-10 hover:cur' size='xl' onClick={()=>{
-            handleTrialBooking(aboutRef)
+            scrollToAbout()
             if(!isSignedIn && isLoaded)setShowSignIn(true) 
             }}>Start your Trial</Button>
         </section>
@@ -71,7 +62,7 @@ const LandingPage = () => {
                 </h1>
               </div>
           </div>
-          <MemberShipCards />
+          <MemberShipCards onStartTrialClick={scrollToAbout} ref={memberShipRefForScroll}/>
         </section>
         {/* About Section */}
         <section>

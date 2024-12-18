@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from './ui/button'
 
-const Header = ({onContactClick}) => {
+const Header = ({onContactClick, onMembershipClick}) => {
     
     const [showSignIn, setShowSignIn] = useState(false)
     const {user} = useUser()
@@ -31,7 +31,7 @@ const Header = ({onContactClick}) => {
                 <img src='./sc-logo.png' alt='logo' className='h-14'></img>
             </Link>
             <div className='flex gap-12 items-center'>
-                <h1>Memberships</h1>
+                <h1 className='hover:cursor-pointer' onClick={onMembershipClick}>Memberships</h1>
                 <Link to='/shop'><h1 className='hover:cursor-pointer'><span className='flex gap-2'><ShoppingBag color='#97fb57' />Shop</span></h1></Link>
                 <h1 className="hover:cursor-pointer" onClick={onContactClick}>Contact</h1>
                 <div>
