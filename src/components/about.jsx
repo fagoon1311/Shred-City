@@ -20,6 +20,16 @@ const About = forwardRef(({user,showSignIn, setShowSignIn, isSignedIn, isLoaded}
     resolver: zodResolver(schema)
   })
 
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setDate(today.getDate() + 7); // Add 7 days
+  
+  // Format the result (optional)
+  const yyyy = futureDate.getFullYear();
+  const mm = String(futureDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const dd = String(futureDate.getDate()).padStart(2, '0');
+  const expiryDate = `${yyyy}-${mm}-${dd}`;
+
   const {
     loading: loadingNewTrial,
     error: errorTrial,
@@ -34,7 +44,9 @@ const About = forwardRef(({user,showSignIn, setShowSignIn, isSignedIn, isLoaded}
     }
     fnTrial({
       ...data,
-      trial_id: user.id
+      trial_id: user.id,
+      expires_on:expiryDate
+
     }).then(()=>{
       reset()
     })
