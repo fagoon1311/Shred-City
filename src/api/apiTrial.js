@@ -10,22 +10,24 @@ export async function addNewTrial(token, _ , trialData) {
     return data
 }
 
-export async function getMyMemberShip(token) {
+export async function getMyMemberShip(token, {userId}) {
     const supabase = await supabaseClient(token)
-    const {data, error} = await supabase.from('Memberships').select('*')
+    const {data, error} = await supabase.from('Memberships').select('*').eq('user_id', userId)
     if(error){
         console.error("Error getting membership data")
         return null
     }
+    console.log(data)
     return data
 }
 
-export async function getMyTrialInfo(token) {
+export async function getMyTrialInfo(token, {userId}) {
     const supabase = await supabaseClient(token)
-    const {data, error} = await supabase.from('trials').select('*')
+    const {data, error} = await supabase.from('trials').select('*').eq('trial_id', userId)
     if(error){
         console.error("Error getting trials data")
         return null
-    }
+    }  
+    console.log(data)
     return data
 }
