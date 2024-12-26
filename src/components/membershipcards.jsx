@@ -4,7 +4,7 @@ import membershipdata from '../data/membershipdata.json'
 import { CircleCheck } from 'lucide-react'
 
 
-const MemberShipCards = forwardRef(({onStartTrialClick}, ref) => {
+const MemberShipCards = forwardRef(({onStartTrialClick, onSubscribeClick, renderMode='default'}, ref) => {
   return (
     <div ref={ref} className='flex justify-evenly gap-8'>
         {
@@ -21,8 +21,14 @@ const MemberShipCards = forwardRef(({onStartTrialClick}, ref) => {
                         }
                     </ul>
                     <p className='text-slate-600 mt-2 mb-2'>{data.payment_info}</p>
+                    {
+                    renderMode === 'default' ?
                     <Button variant='outline' className='rounded-l-full rounded-r-full' onClick={onStartTrialClick}>Start 7 day trial</Button>
-                </div>
+                        :
+                    <Button variant='outline' className='rounded-l-full rounded-r-full' onClick={()=>onSubscribeClick(data.id)}>Subscribe</Button>
+                    
+                }
+                    </div>
             )
         })
         }

@@ -11,6 +11,7 @@ export async function addNewTrial(token, _ , trialData) {
 }
 
 export async function getMyMemberShip(token, {userId}) {
+    console.log("Running getmemeb")
     const supabase = await supabaseClient(token)
     const {data, error} = await supabase.from('Memberships').select('*').eq('user_id', userId)
     if(error){
@@ -22,6 +23,8 @@ export async function getMyMemberShip(token, {userId}) {
 }
 
 export async function getMyTrialInfo(token, {userId}) {
+    console.log("Running getmytri")
+
     const supabase = await supabaseClient(token)
     const {data, error} = await supabase.from('trials').select('*').eq('trial_id', userId)
     if(error){
