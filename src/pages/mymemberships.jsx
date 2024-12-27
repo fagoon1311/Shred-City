@@ -1,13 +1,16 @@
 import { getMyMemberShip, getMyTrialInfo } from '@/api/apiTrial';
 import MemberShipCards from '@/components/membershipcards';
+import SubscriptionDetails from '@/components/subscriptiondetails';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PropagateLoader } from 'react-spinners'; 
 
 const MyMemberships = () => {
   const { isLoaded, user } = useUser();
   const [showMembershipForm, setShowMembershipForm] = useState(false)
+  const [membershipData, setMemberShipData] = useState(null)
+
   const {
     loading: loadingMemberships,
     error: errorMemberships,
@@ -31,6 +34,11 @@ const MyMemberships = () => {
 
   const onSubscribeClick = (id) => {
     console.log("Subscribed to - ", id)
+    setShowMembershipForm(true)
+  }
+
+  const handleMemberShipData = (data) => {
+    setMemberShipData(data)
   }
 
   if (loadingMemberships || loadingTrialsData) {
@@ -50,7 +58,7 @@ const MyMemberships = () => {
       </div>
     );
   }
-
+  if(membershipData)console.log("Membership data collected from form ", membershipData)
   return (
     <div className="flex items-center justify-center flex-col h-screen">
       {/* {trialsData || membershipsData ? (
@@ -70,10 +78,10 @@ const MyMemberships = () => {
         </div>
       ) : ( */}
         <div className="flex items-center justify-center flex-col">
-            <MemberShipCards renderMode={'subscribe'} onSubscribeClick={onSubscribeClick}/>
-            <form>
-
-            </form>
+            <MemberShipCards renderMode={'subscribe'} onSubscribeClick={onSubscribeClick} />
+            {
+              showMembershipForm && <SubscriptionDetails setShowMembershipForm={setShowMembershipForm} handleMemberShipData={handleMemberShipData}/>
+            }
         </div>
       
     </div>
