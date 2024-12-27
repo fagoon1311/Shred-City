@@ -3,12 +3,11 @@ import MemberShipCards from '@/components/membershipcards';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
 import React, { useEffect } from 'react';
-import { PropagateLoader } from 'react-spinners';
+import { PropagateLoader } from 'react-spinners'; 
 
 const MyMemberships = () => {
   const { isLoaded, user } = useUser();
-   
-
+  const [showMembershipForm, setShowMembershipForm] = useState(false)
   const {
     loading: loadingMemberships,
     error: errorMemberships,
