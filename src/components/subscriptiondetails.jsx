@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { CircleX } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 const schema = z.object({
   fullName: z.string().min(1, {message: "Enter your fullname"}),
@@ -16,7 +17,7 @@ const schema = z.object({
   ),
   contact: z.string().max(10, {message:"Enter a valid Mobile Number"}).min(10, {message:"Enter a valid Mobile Number"}),
   address: z.string().min(1, {message:"Enter a valid Address"}),
-  //membership: z.enum(['Month to Month', '6 Months', '1 Year'],{message:"Please choose a membership type"}),
+  membership: z.enum(['Month to Month', '6 Months', '1 Year'],{message:"Please choose a membership type"}),
   cardNumber: z.string().min(16, {message: "Invalid Card Number"}).max(16, {message: "Invalid Card Number"}),
   expiration: z
     .string()
@@ -36,7 +37,7 @@ const schema = z.object({
 })
 
 const SubscriptionDetails = ({ setShowMembershipForm, handleMemberShipData }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, control } = useForm({
         resolver: zodResolver(schema),
     });
 
@@ -69,7 +70,7 @@ const SubscriptionDetails = ({ setShowMembershipForm, handleMemberShipData }) =>
                     {...register("fullName")}
                 />
                 
-
+ 
                 <Input
                     className={`bg-black text-white border-[2px] h-10 rounded-3xl w-full ${
                         errors.dateOfBirth ? "border-red-500" : "border-[#97fb57]"
@@ -103,6 +104,23 @@ const SubscriptionDetails = ({ setShowMembershipForm, handleMemberShipData }) =>
                     }`}
                     placeholder={errors.address ? errors.address.message : "Address"}
                     {...register("address")}
+                />
+
+                <Controller 
+                    name='membership'
+                    control={control}
+                    render={({field})=>(
+                      <Select className='flex-1' onValueChange={field.onChange} {...field}>
+                      <SelectTrigger className='bg-black text-white border-[#97fb57] border-[3px] h-16 rounded-3xl'>
+                        <SelectValue placeholder="Select Membership" />
+                      </SelectTrigger>
+                      <SelectContent className='bg-black text-white'  >
+                        <SelectItem value="Month to Month">Month to Month</SelectItem>
+                        <SelectItem value="6 Months">6 Months</SelectItem>
+                        <SelectItem value="1 Year">1 Year</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    )}
                 />
 
                 <Input
