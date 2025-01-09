@@ -10,6 +10,17 @@ export async function addNewTrial(token, _ , trialData) {
     return data
 }
 
+export async function addNewMembership(token, _ , memData) {
+    const supabase = await supabaseClient(token)
+    const {data ,error} = await supabase.from('Memberships').insert([memData]).select()
+    if(error){
+        console.error("Error Uploading membership data")
+        return null
+    }
+    return data
+}
+
+
 export async function getMyMemberShip(token, {userId}) {
     console.log("Running getmemeb")
     const supabase = await supabaseClient(token)
@@ -18,7 +29,7 @@ export async function getMyMemberShip(token, {userId}) {
         console.error("Error getting membership data")
         return null
     }
-    console.log(data)
+    console.log("Current membership data from api",data)
     return data
 }
 
@@ -31,6 +42,6 @@ export async function getMyTrialInfo(token, {userId}) {
         console.error("Error getting trials data")
         return null
     }  
-    console.log(data)
+    console.log("Trial data returned from api",data)
     return data
 }

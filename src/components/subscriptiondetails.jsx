@@ -10,7 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 
 const schema = z.object({
   fullName: z.string().min(1, {message: "Enter your fullname"}),
-  dateOfBirth: z.string().regex(/^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(19|20)\d\d$/, {message: "Enter DOB in DDMMYYYY"}),
+  dateOfBirth: z
+    .string()
+    .regex(/^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(19|20)\d\d$/, { message: "Enter DOB in DDMMYYYY" })
+    .transform((value) => {
+      // Parse the DDMMYYYY string into a Date object
+      const day = parseInt(value.slice(0, 2), 10);
+      const month = parseInt(value.slice(2, 4), 10) - 1; // Months are 0-indexed
+      const year = parseInt(value.slice(4), 10);
+      return new Date(year, month, day);
+    }),
   email:z.string().regex(
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     { message: "Enter a valid email address" }
