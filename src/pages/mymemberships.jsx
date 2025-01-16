@@ -1,5 +1,6 @@
 import { addNewMembership, getMyMemberShip, getMyTrialInfo } from '@/api/apiTrial';
 import MemberShipCards from '@/components/membershipcards';
+import OnGoingSubs from '@/components/ongoingsubs';
 import SubscriptionDetails from '@/components/subscriptiondetails';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
@@ -79,31 +80,30 @@ const MyMemberships = () => {
 
   return (
     <div className="flex items-center justify-center flex-col h-screen">
-      {/* {trialsData || membershipsData ? (
+      { trialsData || membershipsData ? (
         <div className="flex flex-col">
           {trialsData && (
             <div>
               <h2>Trials</h2>
               <pre>{JSON.stringify(trialsData, null, 2)}</pre>
+              
             </div>
           )}
           {membershipsData && (
-            <div>
-              <h2>Memberships</h2>
-              <pre>{JSON.stringify(membershipsData, null, 2)}</pre>
-            </div>
+            <OnGoingSubs data = {membershipsData}/>
+            
           )}
         </div>
-      ) : ( */}
+      ) : ( 
         <div className="flex items-center justify-center flex-col">
             <MemberShipCards renderMode={'subscribe'} onSubscribeClick={onSubscribeClick} />
             {
               showMembershipForm && <SubscriptionDetails setShowMembershipForm={setShowMembershipForm} handleMemberShipData={handleMemberShipData}/>
             }
         </div>
-      
+      )}
     </div>
-  );
-};
+  
+)};
 
 export default MyMemberships;
