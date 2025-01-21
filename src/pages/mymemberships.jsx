@@ -2,6 +2,7 @@ import { addNewMembership, getMyMemberShip, getMyTrialInfo } from '@/api/apiTria
 import MemberShipCards from '@/components/membershipcards';
 import OnGoingSubs from '@/components/ongoingsubs';
 import SubscriptionDetails from '@/components/subscriptiondetails';
+import TrialsData from '@/components/trialsdata';
 import useFetch from '@/hooks/useFetch';
 import { useUser } from '@clerk/clerk-react';
 import React, { useEffect, useState } from 'react';
@@ -83,11 +84,7 @@ const MyMemberships = () => {
       { trialsData || membershipsData ? (
         <div className="flex flex-col">
           {trialsData && (
-            <div>
-              <h2>Trials</h2>
-              <pre>{JSON.stringify(trialsData, null, 2)}</pre>
-              
-            </div>
+            <TrialsData data = {trialsData}/>
           )}
           {membershipsData && (
             <OnGoingSubs data = {membershipsData}/>

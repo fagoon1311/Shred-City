@@ -36,7 +36,9 @@ export async function getMyMemberShip(token, {userId}) {
 export async function getMyTrialInfo(token, {userId}) {
     console.log("Running getmytri")
 
+
     const supabase = await supabaseClient(token)
+    const today = new Date().toISOString().split('T')[0]
     const {data, error} = await supabase.from('trials').select('*').eq('trial_id', userId)
     if(error){
         console.error("Error getting trials data")
