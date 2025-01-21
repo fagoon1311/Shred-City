@@ -9,7 +9,8 @@ const TrialsData = ({data}) => {
     return (
         <div className="flex flex-col bg-[#f7f6f2] rounded-2xl items-center justify-center mt-8 py-10 shadow-xl w-[80%] mx-auto max-w-[600px]">
           <h1 className="text-[#2D2D2D] font-Poppins text-5xl font-extrabold py-6 text-center">
-            Your Trials
+            Your<br></br>
+            Trials
           </h1>
           <p className="text-[#3a6f5e] font-Poppins text-3xl font-semibold text-center">
             {memType}

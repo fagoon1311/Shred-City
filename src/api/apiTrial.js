@@ -39,7 +39,7 @@ export async function getMyTrialInfo(token, {userId}) {
 
     const supabase = await supabaseClient(token)
     const today = new Date().toISOString().split('T')[0]
-    const {data, error} = await supabase.from('trials').select('*').eq('trial_id', userId)
+    const {data, error} = await supabase.from('trials').select('*').eq('trial_id', userId).gt('expires_on', today)
     if(error){
         console.error("Error getting trials data")
         return null

@@ -82,11 +82,11 @@ const MyMemberships = () => {
   return (
     <div className="flex items-center justify-center flex-col h-screen">
       { trialsData || membershipsData ? (
-        <div className="flex flex-col">
-          {trialsData && (
+        <div className="flex flex-row gap-10">
+          {trialsData.length > 0 && (
             <TrialsData data = {trialsData}/>
           )}
-          {membershipsData && (
+          {membershipsData.length > 0 && (
             <OnGoingSubs data = {membershipsData}/>
             
           )}
